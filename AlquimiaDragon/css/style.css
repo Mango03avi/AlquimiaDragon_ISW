@@ -1,0 +1,124 @@
+body {
+    background-color: #4E4D4D;
+    height: 100%;
+    /* Asegura que la página ocupe el 100% de la altura de la ventana */
+    margin: 0;
+    padding: 0;
+    background-size: 100vw 100vh;
+    background-repeat: no-repeat;
+}
+
+#card-login {
+    max-width: 600px;
+    width: auto;
+    border-radius: 21px;
+    background-color: #E0DCDB;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    /* Sombra ligera */
+    position: absolute;
+    top: 25%;
+    left: 10%;
+}
+
+.form-control {
+    width: 250px;
+    /* Ajusta este valor según el diseño deseado */
+    border-radius: 0;
+    background-color: #E0DCDB;
+    border-color: #000;
+    border-width: 1px;
+}
+
+#form {
+    width: 504px;
+}
+
+.form-control:focus {
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: #E8433D;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem #98362D;
+}
+
+#btn-login {
+    border-radius: 0;
+    --bs-btn-color: #000;
+    --bs-btn-bg: #E0DCDB;
+    --bs-btn-border-color: #000;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #000;
+    --bs-btn-hover-border-color: #fff;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #E0DCDB;
+    --bs-btn-active-border-color: #A97963;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #A97963;
+    --bs-btn-disabled-border-color: #D7B8A6;
+}
+
+#btn-reenviar{
+    max-width: 504px;
+    width: 100%;
+    font-weight: 500;
+    --bs-btn-color: #000;
+    --bs-btn-bg: #A97963;
+    --bs-btn-border-color: #A97963;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #000;
+    --bs-btn-hover-border-color: #fff;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #D7B8A6;
+    --bs-btn-active-border-color: #A97963;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #D7B8A6;
+    --bs-btn-disabled-border-color: #D7B8A6;
+}
+
+
+#btn-register {
+    max-width: 504px;
+    width: 100%;
+    font-weight: 500;
+    --bs-btn-color: #000;
+    --bs-btn-bg: #D7B8A6;
+    --bs-btn-border-color: #D7B8A6;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #000;
+    --bs-btn-hover-border-color: #fff;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #E0DCDB;
+    --bs-btn-active-border-color: #A97963;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #A97963;
+    --bs-btn-disabled-border-color: #D7B8A6;
+}
+
+#wizard {
+    height: 100vh;
+    width: auto;
+}
+
+#title-alquimia{
+    font-family: "Zeyada", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 45px;
+    color: #fff;
+    position: absolute;
+    top: 11.5%;
+    left: 22%;
+}
+
+#icon {
+    max-width: 80px;
+    position: absolute;
+    top: 10%;
+    left: 16%;
+}
