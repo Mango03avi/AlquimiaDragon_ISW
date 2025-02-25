@@ -17,6 +17,12 @@
 </head>
 
 <body>
+
+    <?php
+    include "../base/conexion.php";
+    include "../base/controlador_login.php";
+    ?>
+
     <div>
         <img src="../media/images/Logo_Ch .png" class="img-fluid" id="icon">
         <a id="title-alquimia">AlquimiaDragon</a>
@@ -35,23 +41,24 @@
                 <p class="h1 mb-4">Inicio de Sesion</p>
             </div>
             <!--Formulario ajustar metodo post y dar funcion con JS-->
-            <form class="d-flex flex-wrap justify-content-center gap-1 mb-3">
+            <form method="post" action="#" class="d-flex flex-wrap justify-content-center gap-1 mb-3">
                 <!--Input's largos para correo y password-->
                 <div class="d-flex flex-wrap justify-content-center gap-2">
                     <div class="col-auto">
-                        <input type="email" class="form-control" id="form" placeholder="Correo Electrónico">
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Correo Electrónico">
                     </div>
                     <div class="col-auto">
-                        <input type="password" class="form-control" id="form" placeholder="Contraseña">
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Contraseña">
                     </div>
                 </div>
                 <!--Div para recuperacion de contraseña-->
                 <div class="w-100 text-start gap-2">
-                    <p class="h6 mb-3">¿Olvidaste tu contraseña? <a href="recuperacion_mail.php" style="color:black;">Recuperar</a></p>
+                    <p class="h6 mb-3">¿Olvidaste tu contraseña? <a href="recuperacion_mail.php"
+                            style="color:black;">Recuperar</a></p>
                 </div>
                 <!--Boton-->
                 <div class="col-12 d-flex flex-wrap justify-content-center">
-                    <button type="submit" class="btn btn-primary mt-2" id="btn-register">Registrar</button>
+                    <button type="submit" class="btn btn-primary mt-2" id="btn-register" name="btningresar">Registrar</button>
                 </div>
             </form>
         </div>
