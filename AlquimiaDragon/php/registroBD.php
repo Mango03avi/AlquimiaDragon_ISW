@@ -12,6 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = trim($_POST['correo']);
     $contrasena = trim($_POST['contrasena']);
 
+
+
     // Hashear la contraseña antes de guardarla en la base de datos
     $contrasena_hash = password_hash($contrasena, PASSWORD_DEFAULT);
 
@@ -24,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contrasena_hash = mysqli_real_escape_string($conn, $contrasena_hash);
 
     // Sentencia SQL preparada
-    $sql = "INSERT INTO usuario2 (nombre, Apellido_Pat, Apellido_Mat, telefono, correo, contrasena) 
+    $sql = "INSERT INTO usuario2 (nombre, Apellido_Paterno, Apellido_Materno, telefono, correo, contrasena) 
             VALUES (?, ?, ?, ?, ?, ?)";
 
     // Preparar la sentencia

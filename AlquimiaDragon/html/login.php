@@ -19,8 +19,8 @@
 <body>
 
     <?php
-    include "../base/conexion.php";
-    include "../base/controlador_login.php";
+    include "../php/conexion.php";
+    include "../php/controlador_login.php";
     ?>
 
     <div>
