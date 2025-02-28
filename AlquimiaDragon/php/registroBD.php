@@ -36,9 +36,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Ejecutar la sentencia
         if ($stmt->execute()) {
-            echo "Registro exitoso. ¡Bienvenido, $nombre!";
+            // Mostrar alerta y redirigir a home.php
+            echo "<script>
+                    alert('Registro exitoso. ¡Bienvenido, $nombre!');
+                    window.location.href='../html/login.php';
+                  </script>";
         } else {
-            echo "Error al registrar: " . $stmt->error;
+            echo "<script>
+                    alert('Error al registrar: " . $stmt->error . "');
+                    window.history.back();
+                  </script>";
         }
 
         // Cerrar la sentencia
