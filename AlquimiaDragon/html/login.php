@@ -10,6 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Zeyada&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
@@ -19,8 +20,8 @@
 <body>
 
     <?php
-    include "../php/conexion.php";
-    include "../php/controlador_login.php";
+    include "../base/conexion.php";
+    include "../base/controlador_login.php";
     ?>
 
     <div>
@@ -45,28 +46,90 @@
                 <!--Input's largos para correo y password-->
                 <div class="d-flex flex-wrap justify-content-center gap-2">
                     <div class="col-auto">
-                        <input type="email" name="email" class="form-control" id="email" placeholder="Correo Electrónico">
+                        <input type="email" name="email" class="form-control" id="email" minlength="10" maxlength="35"
+                            placeholder="Correo Electrónico">
                     </div>
-                    <div class="col-auto">
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Contraseña">
+                    <!--Div para el ojito de mostrar contraseña-->
+                    <div class="input-group" style="max-width: 504px;">
+                        <input type="password" name="password" class="form-control" id="password" minlength="10"
+                            maxlength="25" placeholder="Contraseña" style="border-style: solid none solid solid;">
+                        <span class="input-group-text" onclick="vista()" id="verPassword"
+                            style="border: var(--bs-border-width) solid #000000; background-color: #E0DCDB; border-radius:0;cursor: pointer;">
+                            <i class="bi bi-eye"></i>
+                        </span>
                     </div>
+
+
                 </div>
                 <!--Div para recuperacion de contraseña-->
                 <div class="w-100 text-start gap-2">
                     <p class="h6 mb-3">¿Olvidaste tu contraseña? <a href="recuperacion_mail.php"
-                            style="color:black;">Recuperar</a></p>
+                            style="color:black;cursor: pointer;">Recuperar</a></p>
                 </div>
                 <!--Boton-->
                 <div class="col-12 d-flex flex-wrap justify-content-center">
-                    <button type="submit" class="btn btn-primary mt-2" id="btn-register" name="btningresar">Registrar</button>
+                    <button type="submit" class="btn btn-primary mt-2" id="btn-register"
+                        name="btningresar">Ingresar</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <!--div imagen para alerta-->
+    <?php if ($mostrarError): ?>
+        <div class="d-flex justify-content-center" id="contenedor-mensaje">
+            <img src="../media/images/msj_wizard.png" class="img-fluid" id="msjwizard">
+            <div class="mensaje-error">
+                <?php echo $error; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+
+
     <div class="d-flex justify-content-end">
         <img src="../media/images/wizard.png" class="img-fluid d-none d-md-none d-lg-block" id="wizard">
     </div>
+
+    <script>
+        function vista() {
+            const passwordInput = document.getElementById("password");
+            const icon = document.querySelector("#verPassword i");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        form.addEventListener("submit", function (event) {
+            let hasError = false;
+            if (emailInput.value.trim() === "") {
+                highlightField(emailInput);
+                hasError = true;
+            }
+            if (passwordInput.value.trim() === "") {
+                highlightField(passwordInput);
+                hasError = true;
+            }
+            if (hasError) {
+                event.preventDefault(); // Detiene el envío del formulario
+            }
+        });
+        function highlightField(input) {
+            input.classList.add("error");
+            input.setAttribute("placeholder", "Campo vacío");
+            input.value = ""; // Borra el contenido para que se vea el placeholder
+        }
+    });
+    </script>
 
 
 </body>
