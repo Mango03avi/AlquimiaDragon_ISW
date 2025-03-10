@@ -31,7 +31,8 @@ if (!isset($_SESSION["id"])) {
         <div class="container-fluid d-flex align-items-center">
             <!-- Logo y encabezado alineados a la izquierda -->
             <div class="d-flex align-items-center me-auto">
-                <span class="fs-3 ms-3 d-none d-sm-inline"style="font-family: 'Zeyada', serif; font-weight: 500; font-style: normal;">
+                <span class="fs-3 ms-3 d-sm-inline"
+                    style="font-family: 'Zeyada', serif; font-weight: 500; font-style: normal;">
                     AlquimiaDragon</span>
             </div>
 
@@ -66,45 +67,48 @@ if (!isset($_SESSION["id"])) {
 
 
     <div style="box-sizing: border-box;">
-        <!--Imagen del logo-->
-        <div class="d-flex justify-content-center align-items-center vh-100">
+        <!-- Imagen del logo -->
+        <div class="d-flex justify-content-center align-items-center vh-100 flex-md-row flex-column">
             <div class="card border-0" id="img-dashboard">
-                <img src="./media/images/Logo_G.png" class="card-img-top">
+                <img src="./media/images/Logo_G.png" class="img-fluid imgdashboard">
             </div>
         </div>
 
-        <div class="card d-flex justify-content-center align-items-center" id="texto-pricipal">
+
+
+        <div class="card d-flex justify-content-center align-items-center d-none d-lg-flex" id="texto-pricipal">
             <p>¡Vive la Magia de D&D en Nuestra Cafetería!</p>
         </div>
 
         <!--Div con la frase 1-->
-        <div class="card d-flex justify-content-center align-items-center" id="frase-1" data-bs-toggle="popover"
-            data-bs-placement="left" data-bs-trigger="click" data-bs-title="¿Sabias qué?"
+        <div class="card d-flex justify-content-center align-items-center d-none d-lg-flex" id="frase-1"
+            data-bs-toggle="popover" data-bs-placement="left" data-bs-trigger="click" data-bs-title="¿Sabias qué?"
             data-bs-content="Este café es unico y los snacks son caseros.">
             <p>Café de especialidad y deliciosos snacks.</p>
         </div>
 
         <!-- Div con la frase 2 y Popover a la izquierda -->
-        <div class="card d-flex justify-content-center align-items-center" id="frase-2" data-bs-toggle="popover"
-            data-bs-trigger="click" data-bs-placement="left" data-bs-title="Nuestras mesas"
+        <div class="card d-flex justify-content-center align-items-center d-none d-lg-flex" id="frase-2"
+            data-bs-toggle="popover" data-bs-trigger="click" data-bs-placement="left" data-bs-title="Nuestras mesas"
             data-bs-content="Las mesas están diseñadas para juegos de mesa, con suficiente espacio y comodidad.">
             <p>Mesas equipadas para juegos de mesa.</p>
         </div>
 
         <!-- Div con la frase 3 y Popover a la izquierda -->
-        <div class="card d-flex justify-content-center align-items-center" id="frase-3" data-bs-toggle="popover"
-            data-bs-trigger="click" data-bs-placement="left" data-bs-title="Una pelicula"
+        <div class="card d-flex justify-content-center align-items-center d-none d-lg-flex" id="frase-3"
+            data-bs-toggle="popover" data-bs-trigger="click" data-bs-placement="left" data-bs-title="Una pelicula"
             data-bs-content="Sumérgete en una experiencia inmersiva y emocionante.">
             <p>Una aventura digna de película.</p>
         </div>
 
 
-        <!--Imagen de dados-->
-        <div class="d-flex justify-content-end align-items-center vh-90">
+        <!-- Imagen de dados -->
+        <div class="d-flex justify-content-end align-items-center vh-90 d-none d-md-flex">
             <div class="card border-0" id="img-wallpaper">
                 <img src="./media/images/Diseño sin título 1 (2).png" class="card-img-end">
             </div>
         </div>
+
     </div>
 
 
