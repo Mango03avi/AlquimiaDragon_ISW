@@ -18,7 +18,7 @@ if (!isset($_SESSION["id"])) {
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Zen+Kaku+Gothic+Antique&family=Zeyada&display=swap"
         rel="stylesheet">
-
+    <link rel="icon" href="./media/images/Logo_G.png" type="image/png">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title>AlquimiaDragon</title>
@@ -49,13 +49,13 @@ if (!isset($_SESSION["id"])) {
                         <a class="nav-link" href="#">Menú</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mesas</a>
+                        <a class="nav-link" href="./html/mesas.php">Mesas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">#</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./html/login.php">Iniciar Sesión</a>
+                        <a class="nav-link" onclick="location.href='base/logout.php'">Cerrar Sesión</a>
                     </li>
                 </ul>
             </div>
@@ -64,7 +64,6 @@ if (!isset($_SESSION["id"])) {
 </header>
 
 <body id="dashboard">
-
 
     <div style="box-sizing: border-box;">
         <!-- Imagen del logo -->
@@ -114,6 +113,7 @@ if (!isset($_SESSION["id"])) {
 
     <div class="card p-3" id="menu-dashboard">
 
+        <!--Div para cards deproductos-->
         <div class="row row-cols-1 row-cols-md-4 g-4 mb-5">
             <!--Card 1-->
             <div class="col">
@@ -260,6 +260,7 @@ if (!isset($_SESSION["id"])) {
     </script>
 
     <script src="./js/bootstrap.bundle.js"></script>
+
 </body>
 
 <footer></footer>
