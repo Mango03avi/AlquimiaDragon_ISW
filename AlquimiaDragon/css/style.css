@@ -367,3 +367,28 @@ body {
     background-color: #ffe6e6;
     color: red;
 }
+
+#mesasContainer {
+    font-family: "Montserrat", serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 25px;
+    margin-top: 10vh;
+}
+
+.mesa-card {
+    width: 300px;
+    margin: 1px;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: flex-start;
+    text-align: center;
+}
+
+.mesa-card:active{
+    border: #98362D;
+    border-style: solid;
+}

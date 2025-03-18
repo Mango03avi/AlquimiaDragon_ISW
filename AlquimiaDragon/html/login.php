@@ -11,7 +11,7 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Zeyada&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+    <link rel="icon" href="../media/images/Logo_G.png" type="image/png">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <title>AlquimiaDragon</title>
@@ -39,7 +39,7 @@
             <!--Div con texto de registro-->
             <div class="text-start">
                 <p class="h6 mb-1">Estas de vuelta Aventurero!!!</p>
-                <p class="h1 mb-4">Inicio de Sesion</p>
+                <p class="h1 mb-4">Inicio de Sesión</p>
             </div>
             <!--Formulario ajustar metodo post y dar funcion con JS-->
             <form method="post" action="#" class="d-flex flex-wrap justify-content-center gap-1 mb-3">
@@ -69,7 +69,7 @@
                 <!--Boton-->
                 <div class="col-12 d-flex flex-wrap justify-content-center">
                     <button type="submit" class="btn btn-primary mt-2" id="btn-register"
-                        name="btningresar">Ingresar</button>
+                        name="btningresar">Iniciar Sesión</button>
                 </div>
             </form>
         </div>

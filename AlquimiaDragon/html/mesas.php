@@ -66,11 +66,11 @@ if (!isset($_SESSION["id"])) {
 <body id="dashboard">
 
 <div class="container contenedor">
-        <div class="row w-100">
+        <div class="row w-100" id="mesasContainer">
             <!-- Sección de mesas -->
             <div class="col-md-7">
-                <h2 class="text-center mb-5" style="color: #fff;">Mesas Disponibles</h2>
-                <div class="row g-3" id="lista-mesas">
+                <h2 class="text mb-4 ms-3" style="color: #fff;">Mesas Disponibles</h2>
+                <div class="row g-2 " id="lista-mesas">
                     <!-- Las mesas se generan dinámicamente -->
                 </div>
             </div>
@@ -99,7 +99,7 @@ if (!isset($_SESSION["id"])) {
                         <label for="fecha" class="form-label">Fecha</label>
                         <input type="date" id="fecha" class="form-control" required>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Reservar</button>
+                    <button type="submit" class="btn btn-primary w-100 d-flex align-items-end justify-content-center" id="btn-reenviar">Reservar</button>
                 </form>
             </div>
         </div>
@@ -108,12 +108,12 @@ if (!isset($_SESSION["id"])) {
     <script>
         // Datos de las mesas (6 mesas en total)
         const mesas = [
-            { id: 1, capacidad: 2, ubicacion: "Terraza" },
+            { id: 1, capacidad: 4, ubicacion: "Interior" },
             { id: 2, capacidad: 4, ubicacion: "Interior" },
-            { id: 3, capacidad: 6, ubicacion: "VIP" },
-            { id: 4, capacidad: 8, ubicacion: "Privada" },
-            { id: 5, capacidad: 3, ubicacion: "Ventana" },
-            { id: 6, capacidad: 5, ubicacion: "Balcón" }
+            { id: 3, capacidad: 6, ubicacion: "Pasillo" },
+            { id: 4, capacidad: 8, ubicacion: "Vip" },
+            { id: 5, capacidad: 4, ubicacion: "Ventana" },
+            { id: 6, capacidad: 2, ubicacion: "Barra" }
         ];
 
         // Referencia al contenedor de mesas
@@ -122,10 +122,10 @@ if (!isset($_SESSION["id"])) {
         // Generar tarjetas dinámicamente en una cuadrícula 3x2
         mesas.forEach(mesa => {
             const col = document.createElement("div");
-            col.classList.add("col-md-4");
+            col.classList.add("col-md-5", "ms-2");
 
             col.innerHTML = `
-                <div class="card mesa-card text-center p-3 shadow-sm" data-id="${mesa.id}">
+                <div class="card mesa-card text-center p-4 shadow-sm" data-id="${mesa.id}">
                     <h5 class="card-title">Mesa ${mesa.id}</h5>
                     <p class="card-text">Capacidad: ${mesa.capacidad} personas</p>
                     <p class="card-text">Ubicación: ${mesa.ubicacion}</p>
