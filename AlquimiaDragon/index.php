@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION["id"])) {
+    header("Location: html/login.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,11 +18,12 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Zen+Kaku+Gothic+Antique&family=Zeyada&display=swap"
         rel="stylesheet">
-
+    <link rel="icon" href="./media/images/Logo_G.png" type="image/png">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title>AlquimiaDragon</title>
 </head>
+
 
 <header>
     <!--Para el menu superior-->
@@ -22,7 +31,8 @@
         <div class="container-fluid d-flex align-items-center">
             <!-- Logo y encabezado alineados a la izquierda -->
             <div class="d-flex align-items-center me-auto">
-                <span class="fs-3 ms-3 d-none d-sm-inline"style="font-family: 'Zeyada', serif; font-weight: 500; font-style: normal;">
+                <span class="fs-3 ms-3 d-sm-inline"
+                    style="font-family: 'Zeyada', serif; font-weight: 500; font-style: normal;">
                     AlquimiaDragon</span>
             </div>
 
@@ -39,13 +49,13 @@
                         <a class="nav-link" href="#">Menú</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mesas</a>
+                        <a class="nav-link" href="./html/mesas.php">Mesas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">#</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./html/login.php">Iniciar Sesión</a>
+                        <a class="nav-link" onclick="location.href='base/logout.php'">Cerrar Sesión</a>
                     </li>
                 </ul>
             </div>
@@ -55,52 +65,55 @@
 
 <body id="dashboard">
 
-
     <div style="box-sizing: border-box;">
-        <!--Imagen del logo-->
-        <div class="d-flex justify-content-center align-items-center vh-100">
+        <!-- Imagen del logo -->
+        <div class="d-flex justify-content-center align-items-center vh-100 flex-md-row flex-column">
             <div class="card border-0" id="img-dashboard">
-                <img src="./media/images/Logo_G.png" class="card-img-top">
+                <img src="./media/images/Logo_G.png" class="img-fluid imgdashboard">
             </div>
         </div>
 
-        <div class="card d-flex justify-content-center align-items-center" id="texto-pricipal">
+
+
+        <div class="card d-flex justify-content-center align-items-center d-none d-lg-flex" id="texto-pricipal">
             <p>¡Vive la Magia de D&D en Nuestra Cafetería!</p>
         </div>
 
         <!--Div con la frase 1-->
-        <div class="card d-flex justify-content-center align-items-center" id="frase-1" data-bs-toggle="popover"
-            data-bs-placement="left" data-bs-trigger="click" data-bs-title="¿Sabias qué?"
+        <div class="card d-flex justify-content-center align-items-center d-none d-lg-flex" id="frase-1"
+            data-bs-toggle="popover" data-bs-placement="left" data-bs-trigger="click" data-bs-title="¿Sabias qué?"
             data-bs-content="Este café es unico y los snacks son caseros.">
             <p>Café de especialidad y deliciosos snacks.</p>
         </div>
 
         <!-- Div con la frase 2 y Popover a la izquierda -->
-        <div class="card d-flex justify-content-center align-items-center" id="frase-2" data-bs-toggle="popover"
-            data-bs-trigger="click" data-bs-placement="left" data-bs-title="Nuestras mesas"
+        <div class="card d-flex justify-content-center align-items-center d-none d-lg-flex" id="frase-2"
+            data-bs-toggle="popover" data-bs-trigger="click" data-bs-placement="left" data-bs-title="Nuestras mesas"
             data-bs-content="Las mesas están diseñadas para juegos de mesa, con suficiente espacio y comodidad.">
             <p>Mesas equipadas para juegos de mesa.</p>
         </div>
 
         <!-- Div con la frase 3 y Popover a la izquierda -->
-        <div class="card d-flex justify-content-center align-items-center" id="frase-3" data-bs-toggle="popover"
-            data-bs-trigger="click" data-bs-placement="left" data-bs-title="Una pelicula"
+        <div class="card d-flex justify-content-center align-items-center d-none d-lg-flex" id="frase-3"
+            data-bs-toggle="popover" data-bs-trigger="click" data-bs-placement="left" data-bs-title="Una pelicula"
             data-bs-content="Sumérgete en una experiencia inmersiva y emocionante.">
             <p>Una aventura digna de película.</p>
         </div>
 
 
-        <!--Imagen de dados-->
-        <div class="d-flex justify-content-end align-items-center vh-90">
+        <!-- Imagen de dados -->
+        <div class="d-flex justify-content-end align-items-center vh-90 d-none d-md-flex">
             <div class="card border-0" id="img-wallpaper">
                 <img src="./media/images/Diseño sin título 1 (2).png" class="card-img-end">
             </div>
         </div>
+
     </div>
 
 
     <div class="card p-3" id="menu-dashboard">
 
+        <!--Div para cards deproductos-->
         <div class="row row-cols-1 row-cols-md-4 g-4 mb-5">
             <!--Card 1-->
             <div class="col">
@@ -247,6 +260,7 @@
     </script>
 
     <script src="./js/bootstrap.bundle.js"></script>
+
 </body>
 
 <footer></footer>

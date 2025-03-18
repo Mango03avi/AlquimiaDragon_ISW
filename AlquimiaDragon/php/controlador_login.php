@@ -1,37 +1,30 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <script>
-        function validarFormulario() {
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
+<?php
+session_start();
+include("conexion.php");
 
-            if (email === "" || password === "") {
-                alert("Por favor, completa todos los campos.");
-                return false; // Evita que el formulario se envíe
-            }
-            return true; // Permite que el formulario se envíe
-        }
-    </script>
-</head>
-<body>
-    <form action="login.php" method="POST" onsubmit="return validarFormulario()">
-        <label for="email">Correo electrónico:</label>
-        <input type="email" id="email" name="email" required>
-        <br>
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <button type="submit" name="btningresar">Ingresar</button>
-    </form>
+$mostrarError = false; // Variable de control
 
-    <?php
-    // Mostrar mensaje de error si existe
-    if (!empty($error)) {
-        echo "<script>alert('$error');</script>";
+if (isset($_POST['btningresar'])) {
+    $usuario = trim($_POST['email']);
+    $password = trim($_POST['password']);
+
+    // Consulta sencilla para verificar correo y contraseña
+    $sql = "SELECT * FROM Usuario2 WHERE Correo = '$usuario' AND Contrasena = '$password'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $datos = $result->fetch_object();
+
+        // Almacenar datos en la sesión
+        $_SESSION["id"] = $datos->ID_usuario;
+        $_SESSION["nombre"] = $datos->Nombre;
+
+        // Redirigir a la página principal (index.html)
+        header("Location: ../index.php");
+        exit();
+    } else {
+        $error = "Usuario o contraseña incorrectos";
+        $mostrarError = true; // Activar la variable de control
     }
-    ?>
-</body>
-</html>
+}
+?>
