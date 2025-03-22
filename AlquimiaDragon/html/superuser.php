@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["id"])) {
-    header("Location: html/login.php");
+    header("Location: ../html/login.php");
     exit();
 }
 ?>
@@ -21,7 +21,7 @@ if (!isset($_SESSION["id"])) {
     <link rel="icon" href="../media/images/Logo_G.png" type="image/png">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <title>Reserva Mesa</title>
+    <title>Administrador</title>
 </head>
 
 
@@ -64,6 +64,161 @@ if (!isset($_SESSION["id"])) {
 </header>
 
 <body id="dashboard">
+
+    <!--Formulario para registro de nuevo usuario-->
+    <div class="card" style="border: 20px; margin: 20px; padding: 10px;background-color: #E0DCDB;">
+        <h2 class="d-flex flex-wrap justify-content-center gap-1 mb-3">Registrar usuario nuevo</h2>
+        <form class="d-flex flex-wrap justify-content-center gap-1 mb-3">
+            <!--Input´s para introducir nombre y apellido-->
+            <div>
+                <div class="col-auto mb-2">
+                    <input type="text" class="form-control" placeholder="Nombre">
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" placeholder="Apellido Materno">
+                </div>
+            </div>
+            <!--Input's para introducir apellido-->
+            <div>
+                <div class="col-auto mb-2">
+                    <input type="text" class="form-control" placeholder="Apellido Paterno">
+                </div>
+                <div class="col-auto mb-1">
+                    <input type="text" class="form-control" placeholder="Número Celular">
+                </div>
+            </div>
+            <!--Input's largos para correo y password-->
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+                <div class="col-auto">
+                    <input type="email" class="form-control" id="form" placeholder="Correo Electrónico">
+                </div>
+                <div class="col-auto">
+                    <input type="password" class="form-control" id="form" placeholder="Contraseña">
+                </div>
+            </div>
+            <div class="col-12 d-flex flex-wrap justify-content-center">
+                <button type="submit" class="btn btn-primary mt-2" id="btn-register">Registrar</button>
+            </div>
+        </form>
+
+        <!--Registro de Reservas--->
+        <div class="container contenedor">
+            <div class="row w-100" id="mesasContainer">
+                <!-- Sección de mesas -->
+                <div class="col-md-7">
+                    <h2 class="text mb-4 ms-3" style="color: #000;">Mesas Disponibles</h2>
+                    <div class="row g-2 " id="lista-mesas">
+                        <!-- Las mesas se generan dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Sección de reserva -->
+                <div class="col-md-5" style="color: #000;">
+                    <h2 class="text-center mb-3">Reservar Mesa</h2>
+                    <form id="reserva-form" class="p-3 border-none">
+                        <div class="mb-3">
+                            <label for="mesa" class="form-label">Número de Mesa</label>
+                            <input type="text" id="mesa" class="form-control" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="capacidad" class="form-label">Capacidad</label>
+                            <input type="text" id="capacidad" class="form-control" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ubicacion" class="form-label">Ubicación</label>
+                            <input type="text" id="ubicacion" class="form-control" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" id="nombre" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fecha" class="form-label">Fecha</label>
+                            <input type="date" id="fecha" class="form-control" required>
+                        </div>
+                        <button type="submit"
+                            class="btn btn-primary w-100 d-flex align-items-end justify-content-center"
+                            id="btn-reenviar">Reservar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenedor Principal -->
+        <div class="container-fluid">
+            <div class="container my-5">
+                <h1 class="mb-4 text-center">Gestión de usuarios</h1>
+
+                <!-- Filtro de búsqueda -->
+                <div class="mb-4">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Buscar en la tabla...">
+                </div>
+
+                <!-- Tabla para mostrar archivos -->
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover align-middle text-center">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usuariosTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../js/usuarios.js"></script>
+
+    <script>
+        // Datos de las mesas (6 mesas en total)
+        const mesas = [
+            { id: 1, capacidad: 4, ubicacion: "Interior" },
+            { id: 2, capacidad: 4, ubicacion: "Interior" },
+            { id: 3, capacidad: 6, ubicacion: "Pasillo" },
+            { id: 4, capacidad: 8, ubicacion: "Vip" },
+            { id: 5, capacidad: 4, ubicacion: "Ventana" },
+            { id: 6, capacidad: 2, ubicacion: "Barra" }
+        ];
+
+        // Referencia al contenedor de mesas
+        const listaMesas = document.getElementById("lista-mesas");
+
+        // Generar tarjetas dinámicamente en una cuadrícula 3x2
+        mesas.forEach(mesa => {
+            const col = document.createElement("div");
+            col.classList.add("col-md-5", "ms-2");
+
+            col.innerHTML = `
+                <div class="card mesa-card text-center p-4 shadow-sm" data-id="${mesa.id}">
+                    <h5 class="card-title">Mesa ${mesa.id}</h5>
+                    <p class="card-text">Capacidad: ${mesa.capacidad} personas</p>
+                    <p class="card-text">Ubicación: ${mesa.ubicacion}</p>
+                </div>
+            `;
+
+            // Evento para seleccionar una mesa
+            col.querySelector(".mesa-card").addEventListener("click", () => {
+                document.getElementById("mesa").value = mesa.id;
+                document.getElementById("capacidad").value = mesa.capacidad;
+                document.getElementById("ubicacion").value = mesa.ubicacion;
+            });
+
+            listaMesas.appendChild(col);
+        });
+
+        // Evento para manejar la reserva
+        document.getElementById("reserva-form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            alert("Mesa reservada con éxito!");
+        });
+    </script>
+
 
     <script src="../js/bootstrap.bundle.js"></script>
 
