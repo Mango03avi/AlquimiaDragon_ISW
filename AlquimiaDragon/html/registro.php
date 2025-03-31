@@ -34,32 +34,32 @@
                 <p class="h1 mb-5">Crea una cuenta</p>
             </div>
             <!--Formulario ajustar metodo post y dar funcion con JS-->
-            <form class="d-flex flex-wrap justify-content-center gap-1 mb-3">
+            <form class="d-flex flex-wrap justify-content-center gap-1 mb-3" method="POST" action="../php/registroBD.php" >
                 <!--Input´s para introducir nombre y apellido-->
                 <div>
                     <div class="col-auto mb-2">
-                        <input type="text" class="form-control" placeholder="Nombre">
+                        <input type="text" class="form-control" placeholder="Nombre" name="nombre">
                     </div>
                     <div class="col-auto">
-                        <input type="text" class="form-control" placeholder="Apellido Materno">
+                        <input type="text" class="form-control" placeholder="Apellido Materno" name="apellido_materno">
                     </div>
                 </div>
                 <!--Input's para introducir apellido-->
                 <div>
                     <div class="col-auto mb-2">
-                        <input type="text" class="form-control" placeholder="Apellido Paterno">
+                        <input type="text" class="form-control" placeholder="Apellido Paterno" name="apellido_paterno">
                     </div>
                     <div class="col-auto mb-1">
-                        <input type="text" class="form-control" placeholder="Número Celular">
+                        <input type="text" class="form-control" placeholder="Número Celular" name="telefono">
                     </div>
                 </div>
                 <!--Input's largos para correo y password-->
                 <div class="d-flex flex-wrap justify-content-center gap-2">
                     <div class="col-auto">
-                        <input type="email" class="form-control" id="form" placeholder="Correo Electrónico">
+                        <input type="email" class="form-control" id="form" placeholder="Correo Electrónico" name="correo">
                     </div>
                     <div class="col-auto">
-                        <input type="password" class="form-control" id="form" placeholder="Contraseña">
+                        <input type="password" class="form-control" id="form" placeholder="Contraseña" name="contrasena">
                     </div>
                 </div>
                 <div class="col-12 d-flex flex-wrap justify-content-center">

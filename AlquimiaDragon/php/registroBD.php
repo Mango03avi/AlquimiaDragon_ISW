@@ -26,8 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contrasena_hash = mysqli_real_escape_string($conn, $contrasena_hash);
 
     // Sentencia SQL preparada
-    $sql = "INSERT INTO usuario2 (nombre, Apellido_Paterno, Apellido_Materno, telefono, correo, contrasena) 
-            VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO usuario2 (nombre, Apellido_Paterno, Apellido_Materno, telefono, correo, contrasena, ID_rol) 
+            VALUES (?, ?, ?, ?, ?, ?, 8)";
 
     // Preparar la sentencia
     if ($stmt = $conn->prepare($sql)) {
