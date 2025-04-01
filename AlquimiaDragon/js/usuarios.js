@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+git  document.addEventListener("DOMContentLoaded", function () {
     cargarUsuarios();
 
     // Agregar evento de búsqueda
