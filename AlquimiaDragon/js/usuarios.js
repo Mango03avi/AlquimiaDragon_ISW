@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+git  document.addEventListener("DOMContentLoaded", function () {
     cargarUsuarios();
     cargarRoles(); // Cargar roles en el select
     // Agregar evento de búsqueda

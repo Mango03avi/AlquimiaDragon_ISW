@@ -4,6 +4,9 @@ include("conexion.php");
 $action = $_GET['action'];
 
 if ($action === 'fetch') {
+<<<<<<< HEAD
+    $query = "SELECT ID_usuario, Nombre, Correo FROM Usuario2 WHERE ID_rol != 10";  // Excluir administradores
+=======
     /**
      * Para llenar la tabla con una consulta
      */
@@ -13,6 +16,7 @@ if ($action === 'fetch') {
     FROM usuario2 u
     LEFT JOIN roles r ON u.ID_rol = r.ID_rol
     WHERE u.ID_rol NOT IN (1, 8) OR u.ID_rol IS NULL;";  // Excluir administradores y usuarios
+>>>>>>> 926b0144ac7845d1089daff7bdccdcbccdac3a2b
     $result = $conn->query($query);
 
     $usuarios = [];
@@ -26,7 +30,7 @@ if ($action === 'fetch') {
      * Para eliminar usuarios de la tabla
      */
     $idUsuario = $_GET['id'];
-    $deleteQuery = "DELETE FROM Usuario2 WHERE ID_usuario = $idUsuario AND Rol != 2";
+    $deleteQuery = "DELETE FROM Usuario2 WHERE ID_usuario = $idUsuario AND ID_rol != 10";
 
     if ($conn->query($deleteQuery) === TRUE) {
         echo "Usuario eliminado correctamente.";

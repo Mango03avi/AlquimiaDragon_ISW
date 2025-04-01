@@ -22,9 +22,9 @@ if (isset($_POST['btningresar'])) {
         $_SESSION["rol"] = $datos->Rol; // Guardamos el rol en sesión
 
         // Redirección según el rol
-        if ($datos->Rol == 1) {
+        if ($datos->Rol == 10) {
             header("Location: ../index.php"); // Página para usuarios normales
-        } elseif ($datos->Rol == 2) {
+        } elseif ($datos->Rol == 1) {
             header("Location: ../html/superuser.php"); // Página para superusuarios
         } else {
             header("Location: ../index.php"); // Por defecto, si el rol no es reconocido
