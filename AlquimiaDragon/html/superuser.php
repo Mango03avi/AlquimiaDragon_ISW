@@ -67,7 +67,14 @@ if (!isset($_SESSION["id"])) {
 
     <!--Formulario para registro de nuevo usuario-->
     <div class="card" style="border: 20px; margin: 20px; padding: 10px;background-color: #E0DCDB;">
-        <h2 class="d-flex flex-wrap justify-content-center gap-1 mb-3">Registrar usuario nuevo</h2>
+        <h2 class="d-flex flex-wrap justify-content-center gap-1 mb-3">Registrar trabajador nuevo</h2>
+
+        <!--
+            
+                No registra un usuario normal, debe registrar un trabajador
+                
+        -->
+
         <form class="d-flex flex-wrap justify-content-center gap-1 mb-3">
             <!--Input´s para introducir nombre y apellido-->
             <div>
@@ -156,24 +163,106 @@ if (!isset($_SESSION["id"])) {
 
                 <!-- Tabla para mostrar archivos -->
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover align-middle text-center">
+                    <table class="table table-dark table-striped table-hover align-middle text-center">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Correo</th>
+                                <th>Rol</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="usuariosTableBody"></tbody>
                     </table>
                 </div>
+
+                <h3 class="mb-4 text-center">Modificacion de datos</h3>
+
+                <!--Formulario para edicion de usuarios-->
+                <form class="d-flex flex-wrap justify-content-center gap-1 mb-3">
+                    <div>
+                        <div class="col-auto mb-1">
+                            <input type="text" class="form-control" id="idUsuario" placeholder="ID" readonly>
+                        </div>
+                        <div class="input-group mb-1">
+                            <select class="form-select" id="rol">
+                                <option selected disabled>Seleccione el Rol...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-auto mb-1">
+                            <input type="text" class="form-control" id="telefono" placeholder="Número Celular">
+                        </div>
+                        <div class="col-auto">
+                            <input type="email" class="form-control" id="correo" placeholder="Correo Electrónico">
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex flex-wrap justify-content-center">
+                        <button type="submit" class="btn btn-primary mt-2" id="btn-update">Guardar Cambios</button>
+                    </div>
+                </form>
+
             </div>
+        </div>
+
+        <!-- Contenedor Principal para tabla de productos -->
+        <div class="container-fluid">
+            <div class="container my-3">
+                <h1 class="mb-5 text-center">Gestión de Productos</h1>
+
+                <!-- Filtro de búsqueda -->
+                <div class="mb-4">
+                    <input type="text" id="searchItem" class="form-control" placeholder="Buscar en la tabla...">
+                </div>
+
+                <!-- Tabla para mostrar productos -->
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>ID del producto</th>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th>Costo</th>
+                                <th>Disponibilidad</th>
+                                <th>Cambiar disponibilidad</th>
+                                <th>Eliminar Producto</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productosTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+            <h3 class="mb-4 text-center">Modificacion de Menú</h3>
+            <!--Formulario para edicion de producto-->
+            <form class="d-flex flex-wrap justify-content-center gap-1 mb-2">
+                    <div>
+                        <div class="col-auto mb-1">
+                            <input type="text" class="form-control" id="idProducto" placeholder="ID" readonly>
+                        </div>
+                        <div class="col-auto mb-1">
+                            <input type="text" class="form-control" id="nombreProducto" placeholder="Nombre">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-auto mb-1">
+                            <input type="text" class="form-control" id="tipo" placeholder="Ingrese tipo de Producto">
+                        </div>
+                        <div class="col-auto">
+                            <input type="text" class="form-control" id="precio" placeholder="Precio">
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex flex-wrap justify-content-center">
+                        <button type="submit" class="btn btn-primary mt-2" id="btn-updateP">Guardar Cambios</button>
+                    </div>
+                </form>
         </div>
 
     </div>
 
-    <script src="../js/usuarios.js"></script>
+
 
     <script>
         // Datos de las mesas (6 mesas en total)
@@ -219,8 +308,10 @@ if (!isset($_SESSION["id"])) {
         });
     </script>
 
-
+    <script src="../js/usuarios.js"></script>
+    <script src="../js/menu.js"></script>
     <script src="../js/bootstrap.bundle.js"></script>
+
 
 </body>
 
