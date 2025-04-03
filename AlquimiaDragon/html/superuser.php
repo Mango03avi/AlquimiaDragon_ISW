@@ -95,12 +95,20 @@ if (!isset($_SESSION["id"])) {
                 </div>
             </div>
             <!--Input's largos para correo y password-->
-            <div class="d-flex flex-wrap justify-content-center gap-2">
+            <div class="d-flex flex-wrap justify-content-center gap-1">
                 <div class="col-auto">
                     <input type="email" class="form-control" id="form" placeholder="Correo Electrónico">
                 </div>
                 <div class="col-auto">
                     <input type="password" class="form-control" id="form" placeholder="Contraseña">
+                </div>
+            </div>
+            <!--Input's largos para rol-->
+            <div class="d-flex flex-wrap justify-content-center gap-1">
+                <div class="input-group mb-1">
+                            <select class="form-select" id="rol">
+                                <option selected disabled>Seleccione el Rol...</option>
+                            </select>
                 </div>
             </div>
             <div class="col-12 d-flex flex-wrap justify-content-center">
@@ -238,31 +246,37 @@ if (!isset($_SESSION["id"])) {
             <h3 class="mb-4 text-center">Modificacion de Menú</h3>
             <!--Formulario para edicion de producto-->
             <form class="d-flex flex-wrap justify-content-center gap-1 mb-2">
-                    <div>
-                        <div class="col-auto mb-1">
-                            <input type="text" class="form-control" id="idProducto" placeholder="ID" readonly>
-                        </div>
-                        <div class="col-auto mb-1">
-                            <input type="text" class="form-control" id="nombreProducto" placeholder="Nombre">
-                        </div>
+                <div>
+                    <div class="col-auto mb-1">
+                        <input type="text" class="form-control" id="idProducto" placeholder="ID" readonly>
                     </div>
-                    <div>
-                        <div class="col-auto mb-1">
-                            <input type="text" class="form-control" id="tipo" placeholder="Ingrese tipo de Producto">
-                        </div>
-                        <div class="col-auto">
-                            <input type="text" class="form-control" id="precio" placeholder="Precio">
-                        </div>
+                    <div class="col-auto mb-1">
+                        <input type="text" class="form-control" id="nombreProducto" placeholder="Nombre">
                     </div>
-                    <div class="col-12 d-flex flex-wrap justify-content-center">
-                        <button type="submit" class="btn btn-primary mt-2" id="btn-updateP">Guardar Cambios</button>
+                </div>
+                <div>
+                    <div class="col-auto mb-1">
+                        <input type="text" class="form-control" id="tipo" placeholder="Ingrese tipo de Producto">
                     </div>
-                </form>
+                    <div class="col-auto">
+                        <input type="text" class="form-control" id="precio" placeholder="Precio">
+                    </div>
+                </div>
+                <div class="col-12 d-flex flex-wrap justify-content-center">
+                    <button type="submit" class="btn btn-primary mt-2" id="btn-updateP">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="container my-3">
+                <h1 class="mb-3 text-center">Generar Ticket</h1>
+
+                <div class="col-12 d-flex flex-wrap justify-content-center">
+                    <button type="submit" class="btn btn-primary mt-2" id="btn-updateP">Generar Ticket</button>
+                </div>
         </div>
 
     </div>
-
-
 
     <script>
         // Datos de las mesas (6 mesas en total)
@@ -315,6 +329,8 @@ if (!isset($_SESSION["id"])) {
 
 </body>
 
-<footer></footer>
+<footer>
+
+</footer>
 
 </html>
