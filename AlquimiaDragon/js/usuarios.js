@@ -63,15 +63,22 @@ function cargarRoles() {
         .then(response => response.json())
         .then(data => {
             const selectRol = document.getElementById("rol");
-            selectRol.innerHTML = ""; // Limpiar select
+            const selectRol1 = document.getElementById("rol1");
+
+            // Limpiar ambos selects
+            selectRol.innerHTML = '<option selected disabled>Seleccione el Rol...</option>';
+            selectRol1.innerHTML = '<option selected disabled>Seleccione el Rol...</option>';
 
             data.forEach(rol => {
                 const option = `<option value="${rol.ID_rol}">${rol.Nombre}</option>`;
+
                 selectRol.innerHTML += option;
+                selectRol1.innerHTML += option;
             });
         })
         .catch(error => console.error("Error al cargar roles:", error));
 }
+
 
 // Llenar formulario al hacer clic en un usuario
 function llenarFormulario(id, telefono, correo, rol) {

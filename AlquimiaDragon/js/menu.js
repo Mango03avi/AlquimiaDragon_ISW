@@ -128,32 +128,43 @@ function cambioStatus(IdProducto, disponibilidad) {
 }
 
 // Función para actualizar un producto
-function actualizarProducto(event) {
-    event.preventDefault();
+function actualizarProducto() {
+    const id = document.getElementById('idProducto').value.trim();
+    const nombre = document.getElementById('nombreProducto').value.trim();
+    const tipo = document.getElementById('tipo').value.trim();
+    const precio = parseFloat(document.getElementById('precio').value.trim());
 
-    const id = document.getElementById("idProducto").value;
-    const nombre = document.getElementById("nombreProducto").value.trim();
-    const tipo = document.getElementById("tipo").value.trim();
-    const precio = document.getElementById("precio").value.trim();
-
-    if (!id || !nombre || !tipo || !precio) {
-        alert("Por favor, llena todos los campos.");
+    // Validar que nombre, tipo y precio no estén vacíos
+    if (!nombre || !tipo || isNaN(precio)) {
+        alert('Por favor llena todos los campos');
         return;
     }
 
-    fetch("../base/menu.php?action=update", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, nombre, tipo, precio })
+    let action = id ? 'update' : 'insert'; // Si hay ID -> update, si no -> insert
+
+    fetch('tu_archivo_php.php?action=' + action, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            id: id,
+            nombre: nombre,
+            tipo: tipo,
+            precio: precio,
+        }),
     })
-    .then(response => {
-        if (!response.ok) throw new Error("Error en la respuesta del servidor");
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-        alert(data.message);
-        if (data.success) cargarProductos();
+        if (data.success) {
+            alert(data.message);
+            // Aquí puedes limpiar el formulario o recargar la tabla
+        } else {
+            alert(data.message);
+        }
     })
-    .catch(error => console.error("Error al actualizar producto:", error));
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
 

@@ -52,7 +52,7 @@ if (!isset($_SESSION["id"])) {
                         <a class="nav-link" href="#">Menú</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">#</a>
+                        <a class="nav-link" href="#">Administracion</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" onclick="location.href='../base/logout.php'">Cerrar Sesión</a>
@@ -116,53 +116,10 @@ if (!isset($_SESSION["id"])) {
             </div>
         </form>
 
-        <!--Registro de Reservas--->
-        <div class="container contenedor">
-            <div class="row w-100" id="mesasContainer">
-                <!-- Sección de mesas -->
-                <div class="col-md-7">
-                    <h2 class="text mb-4 ms-3" style="color: #000;">Mesas Disponibles</h2>
-                    <div class="row g-2 " id="lista-mesas">
-                        <!-- Las mesas se generan dinámicamente -->
-                    </div>
-                </div>
-
-                <!-- Sección de reserva -->
-                <div class="col-md-5" style="color: #000;">
-                    <h2 class="text-center mb-3">Reservar Mesa</h2>
-                    <form id="reserva-form" class="p-3 border-none">
-                        <div class="mb-3">
-                            <label for="mesa" class="form-label">Número de Mesa</label>
-                            <input type="text" id="mesa" class="form-control" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label for="capacidad" class="form-label">Capacidad</label>
-                            <input type="text" id="capacidad" class="form-control" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label for="ubicacion" class="form-label">Ubicación</label>
-                            <input type="text" id="ubicacion" class="form-control" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label for="nombre" class="form-label">Nombre</label>
-                            <input type="text" id="nombre" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="fecha" class="form-label">Fecha</label>
-                            <input type="date" id="fecha" class="form-control" required>
-                        </div>
-                        <button type="submit"
-                            class="btn btn-primary w-100 d-flex align-items-end justify-content-center"
-                            id="btn-reenviar">Reservar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         <!-- Contenedor Principal -->
         <div class="container-fluid">
             <div class="container my-5">
-                <h1 class="mb-4 text-center">Gestión de usuarios</h1>
+                <h1 class="mb-4 text-center">Gestión de empleados</h1>
 
                 <!-- Filtro de búsqueda -->
                 <div class="mb-4">
@@ -194,7 +151,7 @@ if (!isset($_SESSION["id"])) {
                             <input type="text" class="form-control" id="idUsuario" placeholder="ID" readonly>
                         </div>
                         <div class="input-group mb-1">
-                            <select class="form-select" id="rol">
+                            <select class="form-select" id="rol1">
                                 <option selected disabled>Seleccione el Rol...</option>
                             </select>
                         </div>
@@ -208,7 +165,7 @@ if (!isset($_SESSION["id"])) {
                         </div>
                     </div>
                     <div class="col-12 d-flex flex-wrap justify-content-center">
-                        <button type="submit" class="btn btn-primary mt-2" id="btn-update">Guardar Cambios</button>
+                        <button type="submit" class="btn btn-primary mt-2" id="btn-update">Guardar</button>
                     </div>
                 </form>
 
@@ -259,7 +216,7 @@ if (!isset($_SESSION["id"])) {
                         <input type="text" class="form-control" id="tipo" placeholder="Ingrese tipo de Producto">
                     </div>
                     <div class="col-auto">
-                        <input type="text" class="form-control" id="precio" placeholder="Precio">
+                        <input type="number" class="form-control" id="precio" placeholder="Precio">
                     </div>
                 </div>
                 <div class="col-12 d-flex flex-wrap justify-content-center">
@@ -268,6 +225,12 @@ if (!isset($_SESSION["id"])) {
             </form>
         </div>
         
+<!--********************************************************************************************
+************************************************************************************************
+********************Trabajar en esta parte despues de la insersion de usuarios******************
+************************************************************************************************
+*********************************************************************************************-->
+
         <div class="container my-3">
                 <h1 class="mb-3 text-center">Generar Ticket</h1>
 
