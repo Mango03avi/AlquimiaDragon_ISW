@@ -63,7 +63,7 @@
                 </div>
                 <!--Div para recuperacion de contraseña-->
                 <div class="w-100 text-start gap-2">
-                    <p class="h6 mb-3">¿Olvidaste tu contraseña? <a href="recuperacion_mail.php"
+                    <p class="h6 mb-3">¿Olvidaste tu contraseña? <a href="olvide_contra.php"
                             style="color:black;cursor: pointer;">Recuperar</a></p>
                 </div>
                 <!--Boton-->
