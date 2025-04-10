@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'conexion.php'; // Aquí debes incluir tu conexión a la BD
+require 'conexion.php'; 
 
 if (!isset($_SESSION['codigo_verificado']) || !$_SESSION['codigo_verificado']) {
     header("Location: olvide_contra.php");

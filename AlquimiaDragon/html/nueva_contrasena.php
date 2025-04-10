@@ -55,8 +55,8 @@ if (!isset($_SESSION['codigo_verificado']) || !$_SESSION['codigo_verificado']) {
                 </div>
                 
                 <div class="col-12 d-flex flex-wrap justify-content-center gap-2">
-                    <button type="submit" class="btn btn-primary mt-1" name="actualizar">Guardar</button>
-                    <a href="login.php" class="btn btn-secondary mt-2">Cancelar</a>
+                    <button type="submit" class="btn btn-primary mt-1" name="actualizar" ID="btn-reenviar">Guardar</button>
+                    <a href="login.php" class="btn btn-secondary mt-2" ID="btn-update">Cancelar</a>
                 </div>
             </form>
         </div>

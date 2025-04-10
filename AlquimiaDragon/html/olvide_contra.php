@@ -39,7 +39,7 @@
                 <!--Input's largos para correo y password-->
                 <div class="d-flex flex-wrap justify-content-center gap-2">
                     <div class="col-auto mb-4">
-                        <input type="email" class="form-control" id="form" placeholder="Correo Electrónico" name="email">
+                        <input type="email" class="form-control" id="form" placeholder="Correo Electrónico" name="email" required>
                     </div>
                 </div>
                 <!--Boton-->
