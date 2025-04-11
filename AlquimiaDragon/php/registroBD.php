@@ -4,7 +4,7 @@ include 'conexion.php';
 
 // Verificar si se han enviado datos por POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recoger los datos del formulario
+    // Recoger y limpiar los datos del formulario
     $nombre = trim($_POST['nombre']);
     $apellido_paterno = trim($_POST['apellido_paterno']);
     $apellido_materno = trim($_POST['apellido_materno']);
@@ -12,51 +12,82 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = trim($_POST['correo']);
     $contrasena = trim($_POST['contrasena']);
 
+    // 1. Primero validar el correo
+    function validarCorreo($correo) {
+        // Verificar formato básico
+        if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+        
+        // Verificar dominio
+        $dominio = explode('@', $correo)[1];
+        return checkdnsrr($dominio, 'MX');
+    }
 
+    // Verificar si el correo es válido
+    if (!validarCorreo($correo)) {
+        echo "<script>
+                alert('El correo electrónico no es válido o el dominio no existe');
+                window.history.back();
+              </script>";
+        exit();
+    }
 
-    // Hashear la contraseña antes de guardarla en la base de datos
-    $contrasena_hash = password_hash($contrasena, PASSWORD_DEFAULT);
+    // 2. Verificar si el correo ya existe en la base de datos
+    $sql_check = "SELECT ID_usuario FROM usuario2 WHERE correo = ?";
+    $stmt_check = $conn->prepare($sql_check);
+    $stmt_check->bind_param("s", $correo);
+    $stmt_check->execute();
+    $stmt_check->store_result();
+    
+    if ($stmt_check->num_rows > 0) {
+        echo "<script>
+                alert('Este correo electrónico ya está registrado');
+                window.history.back();
+              </script>";
+        $stmt_check->close();
+        $conn->close();
+        exit();
+    }
+    $stmt_check->close();
 
-    // Escapar los datos para evitar SQL Injection
-    $nombre = mysqli_real_escape_string($conn, $nombre);
-    $apellido_paterno = mysqli_real_escape_string($conn, $apellido_paterno);
-    $apellido_materno = mysqli_real_escape_string($conn, $apellido_materno);
-    $telefono = mysqli_real_escape_string($conn, $telefono);
-    $correo = mysqli_real_escape_string($conn, $correo);
-    $contrasena_hash = mysqli_real_escape_string($conn, $contrasena_hash);
+    // 3. Hashear la contraseña
+   // $contrasena_hash = password_hash($contrasena, PASSWORD_DEFAULT);
 
-    // Sentencia SQL preparada
+    // 4. Insertar el nuevo usuario
     $sql = "INSERT INTO usuario2 (nombre, Apellido_Paterno, Apellido_Materno, telefono, correo, contrasena, ID_rol) 
             VALUES (?, ?, ?, ?, ?, ?, 8)";
 
-    // Preparar la sentencia
-    if ($stmt = $conn->prepare($sql)) {
-        // Vincular los parámetros
-        $stmt->bind_param("ssssss", $nombre, $apellido_paterno, $apellido_materno, $telefono, $correo, $contrasena_hash);
-
-        // Ejecutar la sentencia
-        if ($stmt->execute()) {
-            // Mostrar alerta y redirigir a home.php
-            echo "<script>
-                    alert('Registro exitoso. ¡Bienvenido, $nombre!');
-                    window.location.href='../html/login.php';
-                  </script>";
-        } else {
-            echo "<script>
-                    alert('Error al registrar: " . $stmt->error . "');
-                    window.history.back();
-                  </script>";
-        }
-
-        // Cerrar la sentencia
-        $stmt->close();
-    } else {
-        echo "Error al preparar la consulta: " . $conn->error;
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        echo "<script>
+                alert('Error al preparar la consulta: " . $conn->error . "');
+                window.history.back();
+              </script>";
+        $conn->close();
+        exit();
     }
 
-    // Cerrar la conexión a la base de datos
+    $stmt->bind_param("ssssss", $nombre, $apellido_paterno, $apellido_materno, $telefono, $correo, $contrasena_hash);
+
+    if ($stmt->execute()) {
+        echo "<script>
+                alert('Registro exitoso. ¡Bienvenido, $nombre!');
+                window.location.href='../html/login.php';
+              </script>";
+    } else {
+        echo "<script>
+                alert('Error al registrar: " . $stmt->error . "');
+                window.history.back();
+              </script>";
+    }
+
+    $stmt->close();
     $conn->close();
 } else {
-    echo "Acceso no permitido.";
+    echo "<script>
+            alert('Acceso no permitido');
+            window.location.href='../html/registro.php';
+          </script>";
 }
 ?>

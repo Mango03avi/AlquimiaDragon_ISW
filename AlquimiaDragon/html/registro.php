@@ -41,7 +41,7 @@
                         <input type="text" class="form-control" placeholder="Nombre" name="nombre">
                     </div>
                     <div class="col-auto">
-                        <input type="text" class="form-control" placeholder="Apellido Materno" name="apellido_materno">
+                        <input type="text" class="form-control" placeholder="Apellido Materno" name="apellido_materno" >
                     </div>
                 </div>
                 <!--Input's para introducir apellido-->
