@@ -81,7 +81,7 @@ body {
     --bs-btn-disabled-border-color: #D7B8A6;
 }
 
-#btn-reenviar {
+#btn-reenviar, #btn-ticket {
     max-width: 504px;
     width: 100%;
     font-weight: 500;
@@ -102,7 +102,7 @@ body {
 }
 
 
-#btn-register, #btn-update, #btn-updateP {
+#btn-register, #btn-update, #btn-updateP{
     max-width: 504px;
     width: 100%;
     font-weight: 500;
