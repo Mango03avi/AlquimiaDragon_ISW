@@ -50,7 +50,8 @@
                         <input type="text" class="form-control" placeholder="Apellido Paterno" name="apellido_paterno">
                     </div>
                     <div class="col-auto mb-1">
-                        <input type="text" class="form-control" placeholder="Número Celular" name="telefono">
+                        <input type="tel" class="form-control" placeholder="Número Celular" name="telefono" pattern="[0-9]{10,15}" 
+                        title="Solo números (10-15 dígitos)"  >
                     </div>
                 </div>
                 <!--Input's largos para correo y password-->

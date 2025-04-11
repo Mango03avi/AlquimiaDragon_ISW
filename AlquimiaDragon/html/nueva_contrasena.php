@@ -49,8 +49,8 @@ if (!isset($_SESSION['codigo_verificado']) || !$_SESSION['codigo_verificado']) {
             <form method="POST" action="../php/actualizar_contra.php">
                 <div class="d-flex flex-wrap justify-content-center gap-2">
                     <div class="col-auto mb-4">
-                        <input type="password" class="form-control mb-2" name="nueva_contra" placeholder="Contraseña Nueva" required>
-                        <input type="password" class="form-control" name="confirmar_contra" placeholder="Vuelve a escribirla" required>
+                        <input type="password" class="form-control mb-2" name="nueva_contra" placeholder="Contraseña Nueva" required minlength="10" maxlength="35">
+                        <input type="password" class="form-control" name="confirmar_contra" placeholder="Vuelve a escribirla" required minlength="10" maxlength="35">
                     </div>
                 </div>
                 
