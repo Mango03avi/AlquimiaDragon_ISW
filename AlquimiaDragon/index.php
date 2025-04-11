@@ -52,7 +52,7 @@ if (!isset($_SESSION["id"])) {
                         <a class="nav-link" href="./html/mesas.php">Mesas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">#</a>
+                        <a class="nav-link" href="./html/superuser.php">Administracion</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" onclick="location.href='base/logout.php'">Cerrar Sesión</a>

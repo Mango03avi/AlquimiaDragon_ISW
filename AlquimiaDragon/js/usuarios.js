@@ -79,7 +79,7 @@ function eliminarUsuario(idUsuario) {
         fetch(`../base/usuarios.php?action=delete&id=${idUsuario}`, { method: "GET" })
             .then(response => response.text())
             .then(responseText => {
-                alert(responseText);
+                alert("Usuario Eliminado");
                 cargarUsuarios(); // Recargar usuarios después de eliminar
             })
             .catch(error => console.error("Error al eliminar el usuario:", error));
@@ -127,10 +127,10 @@ function actualizarUsuario(event) {
         return;
     }
     
-    const id = document.getElementById("idUsuario").value;
-    const correo = document.getElementById("correo2").value;
-    const telefono = inputTelefono.value;
-    const idRol = document.getElementById("rol1").value;
+    const id = document.getElementById("idUsuario").value.trim();
+    const correo = document.getElementById("correo2").value.trim();
+    const telefono = inputTelefono.value.trim();
+    const idRol = document.getElementById("rol1").value.trim();
     
     if (!correo || !telefono || !idRol) {
         alert("Por favor, llena todos los campos.");
@@ -156,12 +156,11 @@ function actualizarUsuario(event) {
             cargarUsuarios(); // Recargar la tabla de usuarios después de actualizar
         }
     })
-    .catch(error => console.error("Error al actualizar usuario:", error));
+    alert("Error al actualizar usuario:", error);
 }
 
 // Función para registrar el usuario
 function registrarUsuario(event) {
-    event.preventDefault(); // Evita que el formulario recargue la página
     
     // Validar campo de teléfono celular
     const inputCelular = document.getElementById("celular");
@@ -180,11 +179,7 @@ function registrarUsuario(event) {
     const idRol = document.getElementById("rol").value;
     const contra = document.getElementById("contra").value.trim();
 
-    // Validación
-    if (!nombre || !apellidoP || !apellidoM || !correo || !telefono || !idRol || !contra) {
-        alert("Por favor, complete todos los campos");
-        return;
-    }
+  
 
     // Crear objeto con los datos
     const datosUsuario = {
