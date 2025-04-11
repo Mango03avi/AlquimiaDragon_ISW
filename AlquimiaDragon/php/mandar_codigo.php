@@ -13,6 +13,22 @@ if (isset($_POST['enviar'])) {
     $email = $_POST['email'];
     $codigo = rand(100000, 999999); // Corregí el nombre de la variable (antes tenía un typo)
 
+
+      //  Verificar si el correo existe en la base de datos
+  $stmt = $conn->prepare("SELECT ID_usuario FROM usuario2 WHERE correo = ?");
+  $stmt->bind_param("s", $email);
+  $stmt->execute();
+  $stmt->store_result();
+  if ($stmt->num_rows == 0) {
+    $_SESSION['error'] = 'El correo no está registrado en nuestro sistema';
+    echo "<script>
+            alert('El correo no está registrado en nuestro sistema');
+            window.location.href = '../html/olvide_contra.php';
+          </script>";
+    exit();
+}
+$stmt->close();
+    
     // Guardar en sesión
     $_SESSION['codigo'] = $codigo;
     $_SESSION['email'] = $email;
@@ -36,9 +52,9 @@ if (isset($_POST['enviar'])) {
 
         // Contenido del correo
         $mail->isHTML(true);
-        $mail->Subject = 'Tu código de recuperación';
+        $mail->Subject = 'Tu código de recuperacion';
         $mail->Body = '
-            <h2 style="color: #d35400;">¡Hechizo de recuperación activado!</h2>
+            <h2 style="color: #d35400;">¡Hechizo de recuperacion activado!</h2>
             <p>Tu código mágico es: <strong>' . $codigo . '</strong></p>
             <p>Válido por 10 minutos ⏳</p>
         ';
