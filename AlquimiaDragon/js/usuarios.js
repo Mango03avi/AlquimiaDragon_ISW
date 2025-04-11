@@ -105,9 +105,9 @@ function actualizarUsuario(event) {
     const id = document.getElementById("idUsuario").value;
     const correo = document.getElementById("correo").value;
     const telefono = document.getElementById("telefono").value;
-    const idRol = document.getElementById("rol").value;
+    const idRol = document.getElementById("rol1").value;
 
-    if (!id || !correo || !telefono || !idRol) {
+    if (!correo || !telefono || !idRol) {
         alert("Por favor, llena todos los campos.");
         return;
     }

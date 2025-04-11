@@ -142,7 +142,7 @@ function actualizarProducto() {
 
     let action = id ? 'update' : 'insert'; // Si hay ID -> update, si no -> insert
 
-    fetch('tu_archivo_php.php?action=' + action, {
+    fetch('../base/menu.php?action=' + action, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
