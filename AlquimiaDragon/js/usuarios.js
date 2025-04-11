@@ -5,7 +5,38 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("searchInput").addEventListener("input", filtrarTablaUsuarios);
     document.getElementById("btn-update").addEventListener("click", actualizarUsuario);
     document.getElementById("btn-register").addEventListener("click", registrarUsuario);
+    
+    // Agregar validadores para campos numéricos
+    document.querySelectorAll(".numero-positivo").forEach(input => {
+        input.addEventListener("input", function() {
+            validarNumeroPositivo(this);
+        });
+    });
 });
+
+// Función para validar números positivos
+function validarNumeroPositivo(inputElement) {
+    // Remover cualquier caracter que no sea número
+    inputElement.value = inputElement.value.replace(/[^0-9]/g, '');
+    
+    // Convertir a número y asegurarse que sea positivo
+    const numero = parseInt(inputElement.value);
+    if (inputElement.value && numero <= 0) {
+        inputElement.value = '';
+    }
+    
+    // Validación visual
+    if (inputElement.value && parseInt(inputElement.value) > 0) {
+        inputElement.classList.remove('is-invalid');
+        inputElement.classList.add('is-valid');
+    } else {
+        inputElement.classList.remove('is-valid');
+        inputElement.classList.add('is-invalid');
+    }
+    
+    return inputElement.value && parseInt(inputElement.value) > 0;
+}
+
 // Función para cargar usuarios
 function cargarUsuarios() {
     fetch("../base/usuarios.php?action=fetch")
@@ -30,6 +61,7 @@ function cargarUsuarios() {
         })
         .catch(error => console.error("Error al cargar los usuarios:", error));
 }
+
 // Función para filtrar la tabla
 function filtrarTablaUsuarios() {
     const input = document.getElementById("searchInput").value.toLowerCase();
@@ -40,6 +72,7 @@ function filtrarTablaUsuarios() {
         row.style.display = match ? "" : "none";
     });
 }
+
 // Función para eliminar un usuario
 function eliminarUsuario(idUsuario) {
     if (confirm("¿Estás seguro de eliminar este usuario?")) {
@@ -52,6 +85,7 @@ function eliminarUsuario(idUsuario) {
             .catch(error => console.error("Error al eliminar el usuario:", error));
     }
 }
+
 // Cargar roles en el select de forma dinámica
 function cargarRoles() {
     fetch("../base/usuarios.php?action=getRoles")
@@ -79,24 +113,30 @@ function llenarFormulario(id, telefono, correo, rol) {
     // Seleccionar el rol correcto en el <select>
     const selectRol = document.getElementById("rol");
     selectRol.value = rol; 
-    /**  VER ESTA ALTERNATIVA QUE VERIFICA SI EL ROL EXISTE 
-    *const optionExists = [...selectRol.options].some(option => option.value == rol);
-    *if (!optionExists) {
-    *    alert("Seleccione el Rol que desea asignar.");
-    *}
-    **/
 }
+
 // Función para actualizar el usuario
 function actualizarUsuario(event) {
     event.preventDefault(); // Evita que el formulario recargue la página
+    
+    // Validar campo de teléfono
+    const inputTelefono = document.getElementById("telefono");
+    if (inputTelefono && !validarNumeroPositivo(inputTelefono)) {
+        alert("Por favor ingrese un número de teléfono válido");
+        inputTelefono.focus();
+        return;
+    }
+    
     const id = document.getElementById("idUsuario").value;
     const correo = document.getElementById("correo2").value;
-    const telefono = document.getElementById("telefono").value;
+    const telefono = inputTelefono.value;
     const idRol = document.getElementById("rol1").value;
+    
     if (!correo || !telefono || !idRol) {
         alert("Por favor, llena todos los campos.");
         return;
     }
+    
     fetch("../base/usuarios.php?action=update", {
         method: "POST",
         headers: {
@@ -121,12 +161,22 @@ function actualizarUsuario(event) {
 
 // Función para registrar el usuario
 function registrarUsuario(event) {
+    event.preventDefault(); // Evita que el formulario recargue la página
+    
+    // Validar campo de teléfono celular
+    const inputCelular = document.getElementById("celular");
+    if (inputCelular && !validarNumeroPositivo(inputCelular)) {
+        alert("Por favor ingrese un número de celular válido");
+        inputCelular.focus();
+        return;
+    }
+    
     // Obtener valores de los campos
     const nombre = document.getElementById("name").value.trim();
     const apellidoP = document.getElementById("apellidoP").value.trim();
     const apellidoM = document.getElementById("apellidoM").value.trim();
     const correo = document.getElementById("correo").value.trim();
-    const telefono = document.getElementById("celular").value.trim();
+    const telefono = inputCelular.value;
     const idRol = document.getElementById("rol").value;
     const contra = document.getElementById("contra").value.trim();
 
@@ -151,7 +201,7 @@ function registrarUsuario(event) {
     fetch("../base/usuarios.php?action=register", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json" // Importante especificar el content-type
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(datosUsuario)
     })

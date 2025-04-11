@@ -216,7 +216,7 @@ if (!isset($_SESSION["id"])) {
                         <input type="text" class="form-control" id="tipo" placeholder="Ingrese tipo de Producto" min="1" step="1" required>
                     </div>
                     <div class="col-auto">
-                        <input type="number" class="form-control" id="precio" placeholder="Precio" required>
+                        <input type="number" class="form-control numero-positivo" id="precio" placeholder="Precio" required>
                     </div>
                 </div>
                 <div class="col-12 d-flex flex-wrap justify-content-center">
