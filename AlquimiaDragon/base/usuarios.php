@@ -1,8 +1,6 @@
 <?php
 include("conexion.php");
-
 $action = $_GET['action'];
-
 if ($action === 'fetch') {
     /**
      * Para llenar la tabla con una consulta
@@ -14,12 +12,10 @@ if ($action === 'fetch') {
     LEFT JOIN roles r ON u.ID_rol = r.ID_rol
     WHERE u.ID_rol NOT IN (1, 8) OR u.ID_rol IS NULL;";  // Excluir administradores y usuarios
     $result = $conn->query($query);
-
     $usuarios = [];
     while ($row = $result->fetch_assoc()) {
         $usuarios[] = $row;
     }
-
     echo json_encode($usuarios);
 } elseif ($action === 'delete' && isset($_GET['id'])) {
     /**
@@ -27,7 +23,6 @@ if ($action === 'fetch') {
      */
     $idUsuario = $_GET['id'];
     $deleteQuery = "DELETE FROM Usuario2 WHERE ID_usuario = $idUsuario AND Rol != 2";
-
     if ($conn->query($deleteQuery) === TRUE) {
         echo "Usuario eliminado correctamente.";
     } else {
@@ -37,16 +32,13 @@ if ($action === 'fetch') {
     // Obtener los roles para el select
     $query = "SELECT * FROM roles";
     $result = $conn->query($query);
-
     $roles = [];
     while ($row = $result->fetch_assoc()) {
         $roles[] = $row;
     }
-
     echo json_encode($roles);
 }elseif ($action === 'update') {
     header('Content-Type: application/json'); // Asegura que la respuesta sea JSON
-
     $data = json_decode(file_get_contents("php://input"), true);
     
     if (isset($data['id']) && isset($data['correo']) && isset($data['telefono']) && isset($data['id_rol'])) {
@@ -55,11 +47,9 @@ if ($action === 'fetch') {
         $correo = $data['correo'];
         $telefono = $data['telefono'];
         $idRol = $data['id_rol'];
-
         $query = "UPDATE usuario2 SET Correo = ?, Telefono = ?, ID_rol = ? WHERE ID_usuario = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("sssi", $correo, $telefono, $idRol, $id);
-
         if ($stmt->execute()) {
             echo json_encode(["success" => true, "message" => "Usuario actualizado correctamente."]);
         } else {
@@ -70,5 +60,4 @@ if ($action === 'fetch') {
         echo json_encode(["success" => false, "message" => "Datos incompletos."]);
     }
 }
-
 ?>
