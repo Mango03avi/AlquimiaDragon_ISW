@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Agregar evento de búsqueda
     document.getElementById("searchInput").addEventListener("input", filtrarTablaUsuarios);
     document.getElementById("btn-update").addEventListener("click", actualizarUsuario);
+    document.getElementById("btn-register").addEventListener("click", registrarUsuario);
 });
 // Función para cargar usuarios
 function cargarUsuarios() {
@@ -116,4 +117,60 @@ function actualizarUsuario(event) {
         }
     })
     .catch(error => console.error("Error al actualizar usuario:", error));
+}
+
+// Función para registrar el usuario
+function registrarUsuario(event) {
+    // Obtener valores de los campos
+    const nombre = document.getElementById("name").value.trim();
+    const apellidoP = document.getElementById("apellidoP").value.trim();
+    const apellidoM = document.getElementById("apellidoM").value.trim();
+    const correo = document.getElementById("correo").value.trim();
+    const telefono = document.getElementById("celular").value.trim();
+    const idRol = document.getElementById("rol").value;
+    const contra = document.getElementById("contra").value.trim();
+
+    // Validación
+    if (!nombre || !apellidoP || !apellidoM || !correo || !telefono || !idRol || !contra) {
+        alert("Por favor, complete todos los campos");
+        return;
+    }
+
+    // Crear objeto con los datos
+    const datosUsuario = {
+        nombre: nombre,
+        apellidoP: apellidoP,
+        apellidoM: apellidoM,
+        telefono: telefono,
+        correo: correo,
+        contra: contra,
+        id_rol: idRol
+    };
+
+    // Enviar como JSON
+    fetch("../base/usuarios.php?action=register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json" // Importante especificar el content-type
+        },
+        body: JSON.stringify(datosUsuario)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error en la respuesta del servidor');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            alert(data.message);
+            document.querySelector('form').reset();
+        } else {
+            alert("Error: " + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Error al registrar: " + error.message);
+    });
 }

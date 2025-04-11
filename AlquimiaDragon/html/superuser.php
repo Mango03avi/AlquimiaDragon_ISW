@@ -79,28 +79,28 @@ if (!isset($_SESSION["id"])) {
             <!--Input´s para introducir nombre y apellido-->
             <div>
                 <div class="col-auto mb-2">
-                    <input type="text" class="form-control" placeholder="Nombre">
+                    <input type="text" class="form-control" id="name" placeholder="Nombre">
                 </div>
                 <div class="col-auto">
-                    <input type="text" class="form-control" placeholder="Apellido Materno">
+                    <input type="text" class="form-control" id="apellidoP" placeholder="Apellido Materno">
                 </div>
             </div>
             <!--Input's para introducir apellido-->
             <div>
                 <div class="col-auto mb-2">
-                    <input type="text" class="form-control" placeholder="Apellido Paterno">
+                    <input type="text" class="form-control" id="apellidoM" placeholder="Apellido Paterno">
                 </div>
                 <div class="col-auto mb-1">
-                    <input type="text" class="form-control" placeholder="Número Celular">
+                    <input type="tel" class="form-control" id="celular" placeholder="Número Celular">
                 </div>
             </div>
             <!--Input's largos para correo y password-->
             <div class="d-flex flex-wrap justify-content-center gap-1">
                 <div class="col-auto">
-                    <input type="email" class="form-control" id="form" placeholder="Correo Electrónico">
+                    <input type="email" class="form-control" id="correo" placeholder="Correo Electrónico">
                 </div>
                 <div class="col-auto">
-                    <input type="password" class="form-control" id="form" placeholder="Contraseña">
+                    <input type="password" class="form-control" id="contra" placeholder="Contraseña">
                 </div>
             </div>
             <!--Input's largos para rol-->
