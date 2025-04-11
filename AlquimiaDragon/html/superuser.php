@@ -159,7 +159,7 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
                             <input type="text" class="form-control numero-positivo" id="telefono" placeholder="Número Celular" minlength="9" maxlength="11" required>
                         </div>
                         <div class="col-auto">
-                            <input type="email" name="email" class="form-control" id="correo2" placeholder="Correo Electrónico" minlength="10" maxlength="30" required>
+                            <input type="email" class="form-control" id="correo2" placeholder="Correo Electrónico" minlength="10" maxlength="30" required>
                         </div>
                     </div>
                     <div class="col-12 d-flex flex-wrap justify-content-center">
