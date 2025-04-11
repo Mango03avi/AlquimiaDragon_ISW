@@ -75,7 +75,7 @@ function cargarRoles() {
 function llenarFormulario(id, telefono, correo, rol) {
     document.getElementById("idUsuario").value = id;  // ID
     document.getElementById("telefono").value = telefono;  // Teléfono
-    document.getElementById("correo").value = correo;  // Correo electrónico
+    document.getElementById("correo2").value = correo;  // Correo electrónico
     // Seleccionar el rol correcto en el <select>
     const selectRol = document.getElementById("rol");
     selectRol.value = rol; 
@@ -90,7 +90,7 @@ function llenarFormulario(id, telefono, correo, rol) {
 function actualizarUsuario(event) {
     event.preventDefault(); // Evita que el formulario recargue la página
     const id = document.getElementById("idUsuario").value;
-    const correo = document.getElementById("correo").value;
+    const correo = document.getElementById("correo2").value;
     const telefono = document.getElementById("telefono").value;
     const idRol = document.getElementById("rol1").value;
     if (!correo || !telefono || !idRol) {

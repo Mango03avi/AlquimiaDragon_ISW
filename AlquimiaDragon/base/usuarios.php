@@ -45,7 +45,7 @@ if ($action === 'fetch') {
     $stmt->bind_param("i", $idUsuario);
     
     if ($stmt->execute()) {
-        echo json_encode(["Usuario eliminado correctamente."]);
+        echo json_encode(["success" => true, "message" => "Usuario eliminado"]);
     } else {
         echo json_encode(["success" => false, "message" => "Error al eliminar usuario: " . $stmt->error]);
     }

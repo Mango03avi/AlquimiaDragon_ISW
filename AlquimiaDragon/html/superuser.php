@@ -79,36 +79,36 @@ if (!isset($_SESSION["id"])) {
             <!--Input´s para introducir nombre y apellido-->
             <div>
                 <div class="col-auto mb-2">
-                    <input type="text" class="form-control" id="name" placeholder="Nombre">
+                    <input type="text" class="form-control" id="name" placeholder="Nombre" required>
                 </div>
                 <div class="col-auto">
-                    <input type="text" class="form-control" id="apellidoP" placeholder="Apellido Materno">
+                    <input type="text" class="form-control" id="apellidoP" placeholder="Apellido Materno" required>
                 </div>
             </div>
             <!--Input's para introducir apellido-->
             <div>
                 <div class="col-auto mb-2">
-                    <input type="text" class="form-control" id="apellidoM" placeholder="Apellido Paterno">
+                    <input type="text" class="form-control" id="apellidoM" placeholder="Apellido Paterno" required>
                 </div>
                 <div class="col-auto mb-1">
-                    <input type="tel" class="form-control" id="celular" placeholder="Número Celular">
+                    <input type="tel" class="form-control" id="celular" placeholder="Número Celular" required>
                 </div>
             </div>
             <!--Input's largos para correo y password-->
             <div class="d-flex flex-wrap justify-content-center gap-1">
                 <div class="col-auto">
-                    <input type="email" class="form-control" id="correo" placeholder="Correo Electrónico">
+                    <input type="email" class="form-control" id="correo" placeholder="Correo Electrónico" required>
                 </div>
                 <div class="col-auto">
-                    <input type="password" class="form-control" id="contra" placeholder="Contraseña">
+                    <input type="password" class="form-control" id="contra" placeholder="Contraseña" required>
                 </div>
             </div>
             <!--Input's largos para rol-->
             <div class="d-flex flex-wrap justify-content-center gap-1">
                 <div class="input-group mb-1">
-                            <select class="form-select" id="rol">
-                                <option selected disabled>Seleccione el Rol...</option>
-                            </select>
+                    <select class="form-select" id="rol" required>
+                        <option selected disabled>Seleccione el Rol...</option>
+                    </select>
                 </div>
             </div>
             <div class="col-12 d-flex flex-wrap justify-content-center">
@@ -158,10 +158,10 @@ if (!isset($_SESSION["id"])) {
                     </div>
                     <div>
                         <div class="col-auto mb-1">
-                            <input type="text" class="form-control" id="telefono" placeholder="Número Celular">
+                            <input type="text" class="form-control" id="telefono" placeholder="Número Celular" required>
                         </div>
                         <div class="col-auto">
-                            <input type="email" class="form-control" id="correo" placeholder="Correo Electrónico">
+                            <input type="email" class="form-control" id="correo2" placeholder="Correo Electrónico" required>
                         </div>
                     </div>
                     <div class="col-12 d-flex flex-wrap justify-content-center">
@@ -208,15 +208,15 @@ if (!isset($_SESSION["id"])) {
                         <input type="text" class="form-control" id="idProducto" placeholder="ID" readonly>
                     </div>
                     <div class="col-auto mb-1">
-                        <input type="text" class="form-control" id="nombreProducto" placeholder="Nombre">
+                        <input type="text" class="form-control" id="nombreProducto" placeholder="Nombre" required>
                     </div>
                 </div>
                 <div>
                     <div class="col-auto mb-1">
-                        <input type="text" class="form-control" id="tipo" placeholder="Ingrese tipo de Producto">
+                        <input type="text" class="form-control" id="tipo" placeholder="Ingrese tipo de Producto" min="1" step="1" required>
                     </div>
                     <div class="col-auto">
-                        <input type="number" class="form-control" id="precio" placeholder="Precio">
+                        <input type="number" class="form-control" id="precio" placeholder="Precio" required>
                     </div>
                 </div>
                 <div class="col-12 d-flex flex-wrap justify-content-center">
@@ -224,64 +224,31 @@ if (!isset($_SESSION["id"])) {
                 </div>
             </form>
         </div>
-        
-<!--********************************************************************************************
-************************************************************************************************
-********************Trabajar en esta parte despues de la insersion de usuarios******************
-************************************************************************************************
-*********************************************************************************************-->
 
         <div class="container my-3">
-                <h1 class="mb-3 text-center">Generar Ticket</h1>
+            <h1 class="mb-3 text-center">Generar Ticket</h1>
 
-                <div class="col-12 d-flex flex-wrap justify-content-center">
-                    <button type="submit" class="btn btn-primary mt-2" id="btn-updateP">Generar Ticket</button>
-                </div>
+            <div class="col-12 d-flex flex-wrap justify-content-center">
+                <button type="submit" class="btn btn-primary mt-2" id="btn-ticket">Generar Ticket</button>
+            </div>
         </div>
 
     </div>
 
     <script>
-        // Datos de las mesas (6 mesas en total)
-        const mesas = [
-            { id: 1, capacidad: 4, ubicacion: "Interior" },
-            { id: 2, capacidad: 4, ubicacion: "Interior" },
-            { id: 3, capacidad: 6, ubicacion: "Pasillo" },
-            { id: 4, capacidad: 8, ubicacion: "Vip" },
-            { id: 5, capacidad: 4, ubicacion: "Ventana" },
-            { id: 6, capacidad: 2, ubicacion: "Barra" }
-        ];
+        document.addEventListener("DOMContentLoaded", function () {
+            // Seleccionar el botón por su ID
+            const btnTicket = document.getElementById("btn-ticket");
 
-        // Referencia al contenedor de mesas
-        const listaMesas = document.getElementById("lista-mesas");
-
-        // Generar tarjetas dinámicamente en una cuadrícula 3x2
-        mesas.forEach(mesa => {
-            const col = document.createElement("div");
-            col.classList.add("col-md-5", "ms-2");
-
-            col.innerHTML = `
-                <div class="card mesa-card text-center p-4 shadow-sm" data-id="${mesa.id}">
-                    <h5 class="card-title">Mesa ${mesa.id}</h5>
-                    <p class="card-text">Capacidad: ${mesa.capacidad} personas</p>
-                    <p class="card-text">Ubicación: ${mesa.ubicacion}</p>
-                </div>
-            `;
-
-            // Evento para seleccionar una mesa
-            col.querySelector(".mesa-card").addEventListener("click", () => {
-                document.getElementById("mesa").value = mesa.id;
-                document.getElementById("capacidad").value = mesa.capacidad;
-                document.getElementById("ubicacion").value = mesa.ubicacion;
-            });
-
-            listaMesas.appendChild(col);
-        });
-
-        // Evento para manejar la reserva
-        document.getElementById("reserva-form").addEventListener("submit", (e) => {
-            e.preventDefault();
-            alert("Mesa reservada con éxito!");
+            // Verificar si el botón existe antes de agregar el evento
+            if (btnTicket) {
+                btnTicket.addEventListener("click", function (event) {
+                    event.preventDefault(); // Evitar que el formulario se envíe
+                    alert("Estamos trabajando en esta funcionalidad. ¡Pronto estará disponible!");
+                });
+            } else {
+                console.warn("El botón con ID 'btn-updateP' no fue encontrado");
+            }
         });
     </script>
 
