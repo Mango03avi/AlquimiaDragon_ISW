@@ -260,9 +260,11 @@ function registrarUsuario(event) {
     })
     .then(data => {
         if (data.success) {
-            alert("Usuario registrado con éxito");  
+            // Mensaje de registro exitoso
+            alert(data.message || "Usuario registrado con éxito");  
             document.querySelector('form').reset(); 
         } else {
+            // Aquí cae si el correo ya existe o hay otro error
             alert(data.message || "Ocurrió un error al registrar el usuario");
         }
     })

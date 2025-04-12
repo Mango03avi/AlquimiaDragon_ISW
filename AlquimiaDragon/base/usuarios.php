@@ -13,13 +13,13 @@ if (empty($action)) {
     header('Content-Type: application/json');
     die(json_encode(["success" => false, "message" => "Acción no especificada"]));
 }
-
+// Llenado para tablas
 if ($action === 'fetch') {
     $query = "SELECT u.ID_usuario, u.Nombre, u.Apellido_Paterno, u.Apellido_Materno, 
             u.Correo, u.Telefono, r.Nombre AS Nombre_Rol
             FROM usuario2 u
             LEFT JOIN roles r ON u.ID_rol = r.ID_rol
-            WHERE u.ID_rol NOT IN (1, 8) OR u.ID_rol IS NULL";
+            WHERE u.ID_rol NOT IN (1,8) OR u.ID_rol IS NULL"; //no muestra admins y usuarios
     $result = $conn->query($query);
 
     if (!$result) {
@@ -33,7 +33,7 @@ if ($action === 'fetch') {
     }
     header('Content-Type: application/json');
     echo json_encode($usuarios);
-
+//Delete con verificacion de accion
 } elseif ($action === 'delete' && isset($_GET['id'])) {
     $idUsuario = intval($_GET['id']);
     if ($idUsuario <= 0) {
@@ -50,7 +50,7 @@ if ($action === 'fetch') {
         echo json_encode(["success" => false, "message" => "Error al eliminar usuario: " . $stmt->error]);
     }
     $stmt->close();
-
+//Trae los roles de la tabla
 } elseif ($action === 'getRoles') {
     $query = "SELECT * FROM roles";
     $result = $conn->query($query);
@@ -66,10 +66,10 @@ if ($action === 'fetch') {
     }
     header('Content-Type: application/json');
     echo json_encode($roles);
-
+//Actualizacion de usuarios
 } elseif ($action === 'update') {
     header('Content-Type: application/json');
-    $data = json_decode(file_get_contents("php://input"), true);
+    $data = json_decode(file_get_contents("php://input"), true); //Para llamar al archivo conexion PHP
 
     if (!$data || !isset($data['id']) || !isset($data['correo']) || !isset($data['telefono']) || !isset($data['id_rol'])) {
         die(json_encode(["success" => false, "message" => "Datos incompletos o inválidos"]));
@@ -90,7 +90,7 @@ if ($action === 'fetch') {
         echo json_encode(["success" => false, "message" => "Error al actualizar usuario: " . $stmt->error]);
     }
     $stmt->close();
-
+//Para registro de usuarios nuevos con validacion de correo 
 } elseif ($action === 'register') {
     header('Content-Type: application/json');
     $data = json_decode(file_get_contents('php://input'), true);
@@ -103,7 +103,7 @@ if ($action === 'fetch') {
     $required = ['nombre', 'apellidoP', 'apellidoM', 'telefono', 'correo', 'contra', 'id_rol'];
     foreach ($required as $field) {
         if (empty($data[$field])) {
-            die(json_encode(["success" => false, "message" => "El campo $field es obligatorio"]));
+            die(json_encode(["success" => false, "message" => "Llenat todos los campos es obligatorio"]));
         }
     }
 
@@ -121,7 +121,21 @@ if ($action === 'fetch') {
         die(json_encode(["success" => false, "message" => "El correo electrónico no es válido"]));
     }
 
-    // Insertar
+    //Validar si el correo ya existe
+    $checkQuery = "SELECT id_usuario FROM usuario2 WHERE Correo = ?";
+    $checkStmt = $conn->prepare($checkQuery);
+    $checkStmt->bind_param("s", $correo);
+    $checkStmt->execute();
+    $checkStmt->store_result();
+
+    if ($checkStmt->num_rows > 0) {
+        // El correo ya está registrado
+        $checkStmt->close();
+        die(json_encode(["success" => false, "message" => "El correo ya está registrado, por favor usa otro."]));
+    }
+    $checkStmt->close();
+
+    // Si no existe, insertar
     $query = "INSERT INTO usuario2 (Nombre, Apellido_Paterno, Apellido_Materno, Telefono, Correo, Contrasena, ID_rol) 
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($query);
@@ -137,6 +151,7 @@ if ($action === 'fetch') {
     header('Content-Type: application/json');
     echo json_encode(["success" => false, "message" => "Acción no válida"]);
 }
+
 
 $conn->close();
 ?>
