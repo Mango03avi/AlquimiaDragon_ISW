@@ -15,27 +15,81 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Función para validar números positivos
-function validarNumeroPositivo(inputElement) {
-    // Remover cualquier caracter que no sea número
-    inputElement.value = inputElement.value.replace(/[^0-9]/g, '');
+function validarSoloTexto(inputElement) {
+    // Guardar el valor original antes de limpiar
+    const valorOriginal = inputElement.value;
     
-    // Convertir a número y asegurarse que sea positivo
-    const numero = parseInt(inputElement.value);
-    if (inputElement.value && numero <= 0) {
-        inputElement.value = '';
-    }
+    // Eliminar todo lo que no sea letra (incluye acentos, espacios y Ñ)
+    inputElement.value = inputElement.value.replace(/[^A-Za-záéíóúüñÁÉÍÓÚÜÑ\s]/g, '');
     
-    // Validación visual
-    if (inputElement.value && parseInt(inputElement.value) > 0) {
+    // Verificar si el valor original tenía caracteres inválidos
+    const esValido = inputElement.value === valorOriginal && inputElement.value.trim() !== '';
+    
+    // Aplicar clases de validación
+    if (esValido) {
         inputElement.classList.remove('is-invalid');
         inputElement.classList.add('is-valid');
+        inputElement.setCustomValidity(""); // Limpiar mensaje de error
     } else {
         inputElement.classList.remove('is-valid');
         inputElement.classList.add('is-invalid');
+        inputElement.setCustomValidity("Solo se permiten letras (no números ni símbolos)");
+        inputElement.reportValidity(); // Mostrar mensaje de error
     }
     
-    return inputElement.value && parseInt(inputElement.value) > 0;
+    return esValido;
 }
+
+
+// Función para validar correos
+function validarCorreos(inputElement) {
+    const valor = inputElement.value.trim();
+    
+    // Expresión regular mejorada para correos
+    const regexCorreo = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;    
+    const esValido = valor !== '' && regexCorreo.test(valor);
+    
+    // Aplicar clases de validación
+    if (esValido) {
+        inputElement.classList.remove('is-invalid');
+        inputElement.classList.add('is-valid');
+        inputElement.setCustomValidity(""); // Limpiar mensaje de error
+    } else {
+        inputElement.classList.remove('is-valid');
+        inputElement.classList.add('is-invalid');
+        inputElement.setCustomValidity("Por favor ingrese un correo válido (ejemplo: usuario@gmail.com)");
+        inputElement.reportValidity();
+    }
+    
+    return esValido;
+}
+
+// Función para validar números positivos
+function validarSoloNumeros(inputElement) {
+    // Guardar el valor original antes de limpiar
+    const valorOriginal = inputElement.value;
+    
+    // Eliminar todo lo que no sea número (incluyendo el 0)
+    inputElement.value = inputElement.value.replace(/[^0-9]/g, '');
+    
+    // Verificar si el valor original tenía caracteres inválidos
+    const esValido = inputElement.value === valorOriginal && inputElement.value !== '';
+    
+    // Aplicar clases de validación
+    if (esValido) {
+        inputElement.classList.remove('is-invalid');
+        inputElement.classList.add('is-valid');
+        inputElement.setCustomValidity(""); // Limpiar mensaje de error
+    } else {
+        inputElement.classList.remove('is-valid');
+        inputElement.classList.add('is-invalid');
+        inputElement.setCustomValidity("Solo se permiten números (no letras ni símbolos)");
+        inputElement.reportValidity(); // Mostrar mensaje de error
+    }
+    
+    return esValido;
+}
+
 
 // Función para cargar usuarios
 function cargarUsuarios() {
@@ -175,11 +229,9 @@ function registrarUsuario(event) {
     const apellidoP = document.getElementById("apellidoP").value.trim();
     const apellidoM = document.getElementById("apellidoM").value.trim();
     const correo = document.getElementById("correo").value.trim();
-    const telefono = inputCelular.value;
+    const telefono = inputCelular.value.trim();
     const idRol = document.getElementById("rol").value;
     const contra = document.getElementById("contra").value.trim();
-
-  
 
     // Crear objeto con los datos
     const datosUsuario = {
@@ -208,14 +260,14 @@ function registrarUsuario(event) {
     })
     .then(data => {
         if (data.success) {
-            alert(data.message);
-            document.querySelector('form').reset();
+            alert("Usuario registrado con éxito");  
+            document.querySelector('form').reset(); 
         } else {
-            alert("Error: " + data.message);
+            alert(data.message || "Ocurrió un error al registrar el usuario");
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert("Error al registrar: " + error.message);
+        alert("Hubo un problema al registrar el usuario");
     });
 }

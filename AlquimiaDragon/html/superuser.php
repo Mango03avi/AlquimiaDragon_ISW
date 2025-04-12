@@ -77,28 +77,28 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
             <!--Input´s para introducir nombre y apellido-->
             <div>
                 <div class="col-auto mb-2">
-                    <input type="text" class="form-control" id="name" placeholder="Nombre" minlength="5" maxlength="35" required>
+                    <input type="text" class="form-control" id="name" placeholder="Nombre" minlength="5" maxlength="35" required autocomplete="off" oninput="validarSoloTexto(this)" onblur="validarSoloTexto(this)">
                 </div>
                 <div class="col-auto">
-                    <input type="text" class="form-control" id="apellidoP" placeholder="Apellido Materno" minlength="5" maxlength="35" required>
+                    <input type="text" class="form-control" id="apellidoP" placeholder="Apellido Materno" minlength="5" maxlength="35" required autocomplete="off" oninput="validarSoloTexto(this)" onblur="validarSoloTexto(this)">
                 </div>
             </div>
             <!--Input's para introducir apellido-->
             <div>
                 <div class="col-auto mb-2">
-                    <input type="text" class="form-control" id="apellidoM" placeholder="Apellido Paterno" minlength="5" maxlength="35" required>
+                    <input type="text" class="form-control" id="apellidoM" placeholder="Apellido Paterno" minlength="5" maxlength="35" required autocomplete="off" oninput="validarSoloTexto(this)" onblur="validarSoloTexto(this)">
                 </div>
                 <div class="col-auto mb-1">
-                    <input type="tel" class="form-control numero-positivo" id="celular" placeholder="Número Celular" minlength="9" maxlength="11" required>
+                    <input type="tel" class="form-control" id="celular" placeholder="Número Celular" minlength="9" maxlength="11" required autocomplete="off" oninput="validarSoloNumeros(this)" onblur="validarSoloNumeros(this)">
                 </div>
             </div>
             <!--Input's largos para correo y password-->
             <div class="d-flex flex-wrap justify-content-center gap-1">
                 <div class="col-auto">
-                    <input type="email" name="email" class="form-control" id="correo" placeholder="Correo Electrónico" minlength="10" maxlength="35" required>
+                    <input type="email" name="email" class="form-control" id="correo" placeholder="Correo Electrónico" minlength="10" maxlength="35" required autocomplete="off" onblur="validarCorreos(this)">
                 </div>
                 <div class="col-auto">
-                    <input type="password" class="form-control" id="contra" placeholder="Contraseña" minlength="10" maxlength="35" required>
+                    <input type="password" class="form-control" id="contra" placeholder="Contraseña" minlength="10" maxlength="35" required autocomplete="off" oninput="validarSoloTexto(this)" onblur="validarSoloTexto(this)">
                 </div>
             </div>
             <!--Input's largos para rol-->
@@ -159,7 +159,7 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
                             <input type="text" class="form-control numero-positivo" id="telefono" placeholder="Número Celular" minlength="9" maxlength="11" required>
                         </div>
                         <div class="col-auto">
-                            <input type="email" class="form-control" id="correo2" placeholder="Correo Electrónico" minlength="10" maxlength="30" required>
+                            <input type="email" name="correo2" class="form-control" id="correo2" placeholder="Correo Electrónico" minlength="10" maxlength="30" required>
                         </div>
                     </div>
                     <div class="col-12 d-flex flex-wrap justify-content-center">
