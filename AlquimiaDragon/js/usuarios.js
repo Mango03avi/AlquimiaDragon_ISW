@@ -18,15 +18,17 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Función para validar números positivos
-function validarSoloTexto(inputElement) {
+function validarSoloTexto(inputElement, minLength = 5, maxLength = 35) {
     // Guardar el valor original antes de limpiar
     const valorOriginal = inputElement.value;
     
     // Eliminar todo lo que no sea letra (incluye acentos, espacios y Ñ)
     inputElement.value = inputElement.value.replace(/[^A-Za-záéíóúüñÁÉÍÓÚÜÑ\s]/g, '');
-    
+    //Para validar longitud de texto
+    const valor = inputElement.value.trim();
+    const longitudValida = valor.length >= minLength && valor.length <= maxLength;
     // Verificar si el valor original tenía caracteres inválidos
-    const esValido = inputElement.value === valorOriginal && inputElement.value.trim() !== '';
+    const esValido = valor === valorOriginal.trim() && longitudValida;
     
     // Aplicar clases de validación
     if (esValido) {
@@ -36,8 +38,12 @@ function validarSoloTexto(inputElement) {
     } else {
         inputElement.classList.remove('is-valid');
         inputElement.classList.add('is-invalid');
-        inputElement.setCustomValidity("Solo se permiten letras (no números ni símbolos)");
-        inputElement.reportValidity(); // Mostrar mensaje de error
+        let mensaje = "Solo se permiten letras";
+        if (!longitudValida) {
+            mensaje += ` (${minLength}-${maxLength} caracteres requeridos)`;
+        }
+        inputElement.setCustomValidity(mensaje);
+        inputElement.reportValidity();//Muestra el mensaje
     }
     
     return esValido;
@@ -45,22 +51,26 @@ function validarSoloTexto(inputElement) {
 
 
 // Función para validar correos
-function validarCorreos(inputElement) {
+function validarCorreos(inputElement, minLength = 10, maxLength = 35) {
     const valor = inputElement.value.trim();
     
     // Expresión regular mejorada para correos
     const regexCorreo = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;    
-    const esValido = valor !== '' && regexCorreo.test(valor);
+    const longitudValida = valor.length >= minLength && valor.length <= maxLength;
+    const esValido = regexCorreo.test(valor) && longitudValida;
     
-    // Aplicar clases de validación
     if (esValido) {
         inputElement.classList.remove('is-invalid');
         inputElement.classList.add('is-valid');
-        inputElement.setCustomValidity(""); // Limpiar mensaje de error
+        inputElement.setCustomValidity("");
     } else {
         inputElement.classList.remove('is-valid');
         inputElement.classList.add('is-invalid');
-        inputElement.setCustomValidity("Por favor ingrese un correo válido (ejemplo: usuario@gmail.com)");
+        let mensaje = "Correo inválido.";
+        if (!longitudValida) {
+            mensaje += ` Debe tener entre ${minLength} y ${maxLength} caracteres.`;
+        }
+        inputElement.setCustomValidity(mensaje);
         inputElement.reportValidity();
     }
     
@@ -68,27 +78,34 @@ function validarCorreos(inputElement) {
 }
 
 // Función para validar números positivos
-function validarSoloNumeros(inputElement) {
+function validarSoloNumeros(inputElement, minLength = 9, maxLength = 11) {
     // Guardar el valor original antes de limpiar
     const valorOriginal = inputElement.value;
     
     // Eliminar todo lo que no sea número (incluyendo el 0)
     inputElement.value = inputElement.value.replace(/[^0-9]/g, '');
+    const valor = inputElement.value;
     
-    // Verificar si el valor original tenía caracteres inválidos
-    const esValido = inputElement.value === valorOriginal && inputElement.value !== '';
+    // Verificar si el valor original tenía caracteres inválidos y el largo correcto
+    const longitudValida = valor.length >= minLength && valor.length <= maxLength;
+    const esValido = valor === valorOriginal.trim() && longitudValida;
     
     // Aplicar clases de validación
     if (esValido) {
         inputElement.classList.remove('is-invalid');
         inputElement.classList.add('is-valid');
-        inputElement.setCustomValidity(""); // Limpiar mensaje de error
+        inputElement.setCustomValidity("");
     } else {
         inputElement.classList.remove('is-valid');
         inputElement.classList.add('is-invalid');
-        inputElement.setCustomValidity("Solo se permiten números (no letras ni símbolos)");
-        inputElement.reportValidity(); // Mostrar mensaje de error
+        let mensaje = "Solo se permiten números.";
+        if (!longitudValida) {
+            mensaje += ` Debe tener entre ${minLength} y ${maxLength} dígitos.`;
+        }
+        inputElement.setCustomValidity(mensaje);
+        inputElement.reportValidity();
     }
+
     
     return esValido;
 }
