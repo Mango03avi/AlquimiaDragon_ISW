@@ -66,7 +66,7 @@ if ($action === 'fetch') {
     }
     header('Content-Type: application/json');
     echo json_encode($roles);
-// Update NO FUNCIONA
+// Update YA FUNCIONA
 } elseif ($action === 'update') {
     header('Content-Type: application/json');
     $data = json_decode(file_get_contents("php://input"), true);
@@ -120,6 +120,19 @@ if ($action === 'fetch') {
     if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
         die(json_encode(["success" => false, "message" => "El correo electrónico no es válido"]));
     }
+
+    //Verificar si el correo ya está registrado
+    $checkEmailQuery = "SELECT ID_usuario FROM usuario2 WHERE Correo = ?";
+    $stmtCheck = $conn->prepare($checkEmailQuery);
+    $stmtCheck->bind_param("s", $correo);
+    $stmtCheck->execute();
+    $stmtCheck->store_result();
+
+    if ($stmtCheck->num_rows > 0) {
+        $stmtCheck->close();
+        die(json_encode(["success" => false, "message" => "El correo ya está registrado."]));
+    }
+    $stmtCheck->close();
 
     // Insertar
     $query = "INSERT INTO usuario2 (Nombre, Apellido_Paterno, Apellido_Materno, Telefono, Correo, Contrasena, ID_rol) 

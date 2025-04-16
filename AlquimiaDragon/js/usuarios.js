@@ -7,8 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
      // eliminamos listener al botón y cambiamos al formulario:
     const frm = document.getElementById("registerForm");
     frm.addEventListener("submit", registrarUsuario);
-    document.getElementById("btn-register").addEventListener("click", registrarUsuario);
-
+    document.getElementById("btn-register").addEventListener("click", registrarUsuario); //Agregue doble captura de formulario 
 
     // Agregar validadores para campos numéricos
     document.querySelectorAll(".numero-positivo").forEach(input => {
