@@ -7,7 +7,9 @@ document.addEventListener("DOMContentLoaded", function () {
      // eliminamos listener al botón y cambiamos al formulario:
     const frm = document.getElementById("registerForm");
     frm.addEventListener("submit", registrarUsuario);
-    
+    document.getElementById("btn-register").addEventListener("click", registrarUsuario);
+
+
     // Agregar validadores para campos numéricos
     document.querySelectorAll(".numero-positivo").forEach(input => {
         input.addEventListener("input", function() {
@@ -220,7 +222,7 @@ function registrarUsuario(event) {
 
     // Validar campo de teléfono celular
     const inputCelular = document.getElementById("celular");
-    if (inputCelular && !validarSoloNumeros(inputCelular)) {
+    if (!validarSoloNumeros(inputCelular)) {
         alert("Por favor ingrese un número de celular válido");
         inputCelular.focus();
         return;
@@ -263,7 +265,7 @@ function registrarUsuario(event) {
     .then(data => {
         if (data.success) {
             alert("Usuario registrado con éxito");  
-            document.querySelector('form').reset(); 
+            frm.reset(); 
         } else {
             alert(data.message || "Ocurrió un error al registrar el usuario");
         }
