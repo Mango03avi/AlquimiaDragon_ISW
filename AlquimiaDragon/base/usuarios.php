@@ -33,7 +33,7 @@ if ($action === 'fetch') {
     }
     header('Content-Type: application/json');
     echo json_encode($usuarios);
-
+//Boton delete de la tabla funcionando
 } elseif ($action === 'delete' && isset($_GET['id'])) {
     $idUsuario = intval($_GET['id']);
     if ($idUsuario <= 0) {
@@ -50,7 +50,7 @@ if ($action === 'fetch') {
         echo json_encode(["success" => false, "message" => "Error al eliminar usuario: " . $stmt->error]);
     }
     $stmt->close();
-
+//Obtencion de roles para la tabla
 } elseif ($action === 'getRoles') {
     $query = "SELECT * FROM roles";
     $result = $conn->query($query);
@@ -66,7 +66,7 @@ if ($action === 'fetch') {
     }
     header('Content-Type: application/json');
     echo json_encode($roles);
-
+// Update NO FUNCIONA
 } elseif ($action === 'update') {
     header('Content-Type: application/json');
     $data = json_decode(file_get_contents("php://input"), true);
@@ -103,7 +103,7 @@ if ($action === 'fetch') {
     $required = ['nombre', 'apellidoP', 'apellidoM', 'telefono', 'correo', 'contra', 'id_rol'];
     foreach ($required as $field) {
         if (empty($data[$field])) {
-            die(json_encode(["success" => false, "message" => "El campo $field es obligatorio"]));
+            die(json_encode(["success" => false, "message" => "Todos los campos son obligatorio"]));
         }
     }
 
@@ -111,7 +111,7 @@ if ($action === 'fetch') {
     $nombre = $conn->real_escape_string($data['nombre']);
     $apellidoP = $conn->real_escape_string($data['apellidoP']);
     $apellidoM = $conn->real_escape_string($data['apellidoM']);
-    $telefono = $conn->real_escape_string($data['telefono']);
+    $telefono = intval($data['telefono']);
     $correo = $conn->real_escape_string($data['correo']);
     $contra = password_hash($data['contra'], PASSWORD_DEFAULT);
     $idRol = intval($data['id_rol']);
@@ -125,7 +125,7 @@ if ($action === 'fetch') {
     $query = "INSERT INTO usuario2 (Nombre, Apellido_Paterno, Apellido_Materno, Telefono, Correo, Contrasena, ID_rol) 
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssssssi", $nombre, $apellidoP, $apellidoM, $telefono, $correo, $contra, $idRol);
+    $stmt->bind_param("sssissi", $nombre, $apellidoP, $apellidoM, $telefono, $correo, $contra, $idRol);
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true, "message" => "Usuario registrado con éxito"]);

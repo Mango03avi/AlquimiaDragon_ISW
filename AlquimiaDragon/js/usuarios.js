@@ -4,12 +4,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // Agregar evento de búsqueda
     document.getElementById("searchInput").addEventListener("input", filtrarTablaUsuarios);
     document.getElementById("btn-update").addEventListener("click", actualizarUsuario);
-    document.getElementById("btn-register").addEventListener("click", registrarUsuario);
+     // eliminamos listener al botón y cambiamos al formulario:
+    const frm = document.getElementById("registerForm");
+    frm.addEventListener("submit", registrarUsuario);
     
     // Agregar validadores para campos numéricos
     document.querySelectorAll(".numero-positivo").forEach(input => {
         input.addEventListener("input", function() {
-            validarNumeroPositivo(this);
+            validarSoloNumeros(this);
         });
     });
 });
@@ -175,7 +177,7 @@ function actualizarUsuario(event) {
     
     // Validar campo de teléfono
     const inputTelefono = document.getElementById("telefono");
-    if (inputTelefono && !validarNumeroPositivo(inputTelefono)) {
+    if (inputTelefono && !validarSoloNumeros(inputTelefono)) {
         alert("Por favor ingrese un número de teléfono válido");
         inputTelefono.focus();
         return;
@@ -210,15 +212,15 @@ function actualizarUsuario(event) {
             cargarUsuarios(); // Recargar la tabla de usuarios después de actualizar
         }
     })
-    alert("Error al actualizar usuario:", error);
 }
 
 // Función para registrar el usuario
 function registrarUsuario(event) {
-    
+    event.preventDefault(); // Evita que el formulario recargue la página
+
     // Validar campo de teléfono celular
     const inputCelular = document.getElementById("celular");
-    if (inputCelular && !validarNumeroPositivo(inputCelular)) {
+    if (inputCelular && !validarSoloNumeros(inputCelular)) {
         alert("Por favor ingrese un número de celular válido");
         inputCelular.focus();
         return;
