@@ -113,7 +113,7 @@ if ($action === 'fetch') {
     $apellidoM = $conn->real_escape_string($data['apellidoM']);
     $telefono = intval($data['telefono']);
     $correo = $conn->real_escape_string($data['correo']);
-    $contra = password_hash($data['contra'], PASSWORD_DEFAULT);
+    $contra = $conn->real_escape_string($data['contra']);
     $idRol = intval($data['id_rol']);
 
     // Validar formato de correo

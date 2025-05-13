@@ -1,3 +1,4 @@
+let frm;
 document.addEventListener("DOMContentLoaded", function () {
     cargarUsuarios();
     cargarRoles(); // Cargar roles en el select
@@ -5,17 +6,27 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("searchInput").addEventListener("input", filtrarTablaUsuarios);
     document.getElementById("btn-update").addEventListener("click", actualizarUsuario);
      // eliminamos listener al botón y cambiamos al formulario:
-    const frm = document.getElementById("registerForm");
+    frm = document.getElementById("registerForm");
     frm.addEventListener("submit", registrarUsuario);
-    document.getElementById("btn-register").addEventListener("click", registrarUsuario); //Agregue doble captura de formulario 
 
-    // Agregar validadores para campos numéricos
-    document.querySelectorAll(".numero-positivo").forEach(input => {
-        input.addEventListener("input", function() {
-            validarSoloNumeros(this);
-        });
+    document.addEventListener("DOMContentLoaded", function () {
+        const boton = document.getElementById("btn-ticket");
+        if (boton) {
+            boton.addEventListener("click", function (e) {
+                e.preventDefault();
+                generarTicketDelDia();
+            });
+        }
     });
 });
+
+
+//Funcion para generar el ticket del día
+function generarTicketDelDia() {
+    const hoy = new Date().toISOString().split("T")[0]; // Formato: YYYY-MM-DD
+    const url = "../base/generarTicket.php?fecha=" + hoy;
+    window.open(url, "_blank");
+}
 
 // Función para validar números positivos
 function validarSoloTexto(inputElement, minLength = 5, maxLength = 35) {
@@ -110,6 +121,52 @@ function validarSoloNumeros(inputElement, minLength = 9, maxLength = 11) {
     return esValido;
 }
 
+function validarPrecio(inputElement, minLength = 2, maxLength = 7) {
+    //guardar posición del cursor y valor original
+    const inicioSeleccion = inputElement.selectionStart;
+    const valorOriginal = inputElement.value;
+    // Obtener el botón
+    const boton = document.getElementById("btn-updateP");
+
+    //Filtrado de caracteres no válidos
+    inputElement.value = inputElement.value
+        .replace(/[^0-9.]/g, '')  // Elimina todo lo que no sean números o puntos
+        .replace(/(\..*)\./g, '$1') // Elimina puntos adicionales
+        .replace(/^(\d{4,})(\.\d{0,2})?/g, (m, p1) => p1.slice(0,4)) // Limita a 4 enteros
+        .replace(/(\.\d{2})\d+/g, '$1'); // Limita a 2 decimales
+    
+    //validaciones
+    const regexPrecio = /^[0-9]{2,4}(\.[0-9]{1,2})?$/;
+    const formatoValido = regexPrecio.test(inputElement.value);
+    const longitudValida = inputElement.value.length >= minLength && 
+                        inputElement.value.length <= maxLength;
+    const esValido = formatoValido && longitudValida && inputElement.value !== '';
+    
+    // 3. Ajustar posición del cursor
+    const cambios = valorOriginal.length - inputElement.value.length;
+    inputElement.selectionEnd = inputElement.selectionStart = Math.max(0, inicioSeleccion - cambios);
+    
+    //Alerta
+    if (esValido) {
+        inputElement.classList.remove('is-invalid');
+        inputElement.classList.add('is-valid');
+        inputElement.setCustomValidity("");
+    } else {
+        inputElement.classList.remove('is-valid');
+        inputElement.classList.add('is-invalid');
+        
+        let mensaje = "Formato: 2-4 enteros y hasta 2 decimales (ej: 99.99)";
+        if (!longitudValida) {
+            mensaje += `\nDebe tener entre ${minLength} y ${maxLength} caracteres.`;
+        }
+        inputElement.setCustomValidity(mensaje);
+        inputElement.reportValidity();
+    }
+    if (boton) {
+        boton.disabled = !esValido;
+    }
+    return esValido;
+}
 
 // Función para cargar usuarios
 function cargarUsuarios() {
@@ -291,3 +348,4 @@ function registrarUsuario(event) {
         alert("Hubo un problema al registrar el usuario");
     });
 }
+ //Error dice que frm no esta declarado cuando
