@@ -33,7 +33,11 @@ if ($action === 'fetch') {
     }
     header('Content-Type: application/json');
     echo json_encode($usuarios);
+<<<<<<< HEAD
+//Boton delete de la tabla funcionando
+=======
 //Delete con verificacion de accion
+>>>>>>> 398daddc07b8f10be4a6dd36f39d1d0318f42f66
 } elseif ($action === 'delete' && isset($_GET['id'])) {
     $idUsuario = intval($_GET['id']);
     if ($idUsuario <= 0) {
@@ -50,7 +54,11 @@ if ($action === 'fetch') {
         echo json_encode(["success" => false, "message" => "Error al eliminar usuario: " . $stmt->error]);
     }
     $stmt->close();
+<<<<<<< HEAD
+//Obtencion de roles para la tabla
+=======
 //Trae los roles de la tabla
+>>>>>>> 398daddc07b8f10be4a6dd36f39d1d0318f42f66
 } elseif ($action === 'getRoles') {
     $query = "SELECT * FROM roles";
     $result = $conn->query($query);
@@ -66,7 +74,11 @@ if ($action === 'fetch') {
     }
     header('Content-Type: application/json');
     echo json_encode($roles);
+<<<<<<< HEAD
+// Update YA FUNCIONA
+=======
 //Actualizacion de usuarios
+>>>>>>> 398daddc07b8f10be4a6dd36f39d1d0318f42f66
 } elseif ($action === 'update') {
     header('Content-Type: application/json');
     $data = json_decode(file_get_contents("php://input"), true); //Para llamar al archivo conexion PHP
@@ -103,7 +115,11 @@ if ($action === 'fetch') {
     $required = ['nombre', 'apellidoP', 'apellidoM', 'telefono', 'correo', 'contra', 'id_rol'];
     foreach ($required as $field) {
         if (empty($data[$field])) {
+<<<<<<< HEAD
+            die(json_encode(["success" => false, "message" => "Todos los campos son obligatorio"]));
+=======
             die(json_encode(["success" => false, "message" => "Llenat todos los campos es obligatorio"]));
+>>>>>>> 398daddc07b8f10be4a6dd36f39d1d0318f42f66
         }
     }
 
@@ -111,9 +127,9 @@ if ($action === 'fetch') {
     $nombre = $conn->real_escape_string($data['nombre']);
     $apellidoP = $conn->real_escape_string($data['apellidoP']);
     $apellidoM = $conn->real_escape_string($data['apellidoM']);
-    $telefono = $conn->real_escape_string($data['telefono']);
+    $telefono = intval($data['telefono']);
     $correo = $conn->real_escape_string($data['correo']);
-    $contra = password_hash($data['contra'], PASSWORD_DEFAULT);
+    $contra = $conn->real_escape_string($data['contra']);
     $idRol = intval($data['id_rol']);
 
     // Validar formato de correo
@@ -121,6 +137,22 @@ if ($action === 'fetch') {
         die(json_encode(["success" => false, "message" => "El correo electrónico no es válido"]));
     }
 
+<<<<<<< HEAD
+    //Verificar si el correo ya está registrado
+    $checkEmailQuery = "SELECT ID_usuario FROM usuario2 WHERE Correo = ?";
+    $stmtCheck = $conn->prepare($checkEmailQuery);
+    $stmtCheck->bind_param("s", $correo);
+    $stmtCheck->execute();
+    $stmtCheck->store_result();
+
+    if ($stmtCheck->num_rows > 0) {
+        $stmtCheck->close();
+        die(json_encode(["success" => false, "message" => "El correo ya está registrado."]));
+    }
+    $stmtCheck->close();
+
+    // Insertar
+=======
     //Validar si el correo ya existe
     $checkQuery = "SELECT id_usuario FROM usuario2 WHERE Correo = ?";
     $checkStmt = $conn->prepare($checkQuery);
@@ -136,10 +168,11 @@ if ($action === 'fetch') {
     $checkStmt->close();
 
     // Si no existe, insertar
+>>>>>>> 398daddc07b8f10be4a6dd36f39d1d0318f42f66
     $query = "INSERT INTO usuario2 (Nombre, Apellido_Paterno, Apellido_Materno, Telefono, Correo, Contrasena, ID_rol) 
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssssssi", $nombre, $apellidoP, $apellidoM, $telefono, $correo, $contra, $idRol);
+    $stmt->bind_param("sssissi", $nombre, $apellidoP, $apellidoM, $telefono, $correo, $contra, $idRol);
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true, "message" => "Usuario registrado con éxito"]);

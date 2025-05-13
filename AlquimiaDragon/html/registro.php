@@ -38,16 +38,19 @@
                 <!--Input´s para introducir nombre y apellido-->
                 <div>
                     <div class="col-auto mb-2">
-                        <input type="text" class="form-control" placeholder="Nombre" name="nombre" minlength="4" maxlength="30">
+                        <input type="text" class="form-control" placeholder="Nombre" name="nombre" minlength="4" maxlength="30" pattern="[A-Za-záéíóúÁÉÍÓÚñÑüÜ\s]+"
+                        title="Solo letras y espacios (no se permiten números)">
                     </div>
                     <div class="col-auto">
-                        <input type="text" class="form-control" placeholder="Apellido Materno" name="apellido_materno" minlength="4" maxlength="30" >
+                        <input type="text" class="form-control" placeholder="Apellido Materno" name="apellido_materno" minlength="4" maxlength="30" pattern="[A-Za-záéíóúÁÉÍÓÚñÑüÜ\s]+"
+                        title="Solo letras y espacios (no se permiten números)">
                     </div>
                 </div>
                 <!--Input's para introducir apellido-->
                 <div>
                     <div class="col-auto mb-2">
-                        <input type="text" class="form-control" placeholder="Apellido Paterno" name="apellido_paterno" minlength="4" maxlength="30">
+                        <input type="text" class="form-control" placeholder="Apellido Paterno" name="apellido_paterno" minlength="4" maxlength="30" pattern="[A-Za-záéíóúÁÉÍÓÚñÑüÜ\s]+"
+                        title="Solo letras y espacios (no se permiten números)" >
                     </div>
                     <div class="col-auto mb-1">
                         <input type="tel" class="form-control" placeholder="Número Celular" name="telefono" pattern="[0-9]{10,15}" 

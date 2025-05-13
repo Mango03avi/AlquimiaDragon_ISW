@@ -73,7 +73,7 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
     <div class="card" style="border: 20px; margin: 20px; padding: 10px;background-color: #E0DCDB;">
         <h2 class="d-flex flex-wrap justify-content-center gap-1 mb-3">Registrar trabajador nuevo</h2>
 
-        <form class="d-flex flex-wrap justify-content-center gap-1 mb-3">
+        <form id="registerForm" class="d-flex flex-wrap justify-content-center gap-1 mb-3">
             <!--Input´s para introducir nombre y apellido-->
             <div>
                 <div class="col-auto mb-2">
@@ -98,7 +98,11 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
                     <input type="email" name="email" class="form-control" id="correo" placeholder="Correo Electrónico" minlength="10" maxlength="35" required autocomplete="off" onblur="validarCorreos(this)">
                 </div>
                 <div class="col-auto">
+<<<<<<< HEAD
+                    <input type="password" class="form-control" id="contra" placeholder="Contraseña" minlength="10" maxlength="25" required autocomplete="off">
+=======
                     <input type="password" class="form-control" id="contra" placeholder="Contraseña" minlength="10" maxlength="35" required autocomplete="off" >
+>>>>>>> 398daddc07b8f10be4a6dd36f39d1d0318f42f66
                 </div>
             </div>
             <!--Input's largos para rol-->
@@ -110,7 +114,7 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
                 </div>
             </div>
             <div class="col-12 d-flex flex-wrap justify-content-center">
-                <button type="submit" class="btn btn-primary mt-2" id="btn-register">Registrar</button>
+                <button type="subtmit" class="btn btn-primary mt-2" id="btn-register">Registrar</button>
             </div>
         </form>
 
@@ -156,10 +160,10 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
                     </div>
                     <div>
                         <div class="col-auto mb-1">
-                            <input type="text" class="form-control numero-positivo" id="telefono" placeholder="Número Celular" minlength="9" maxlength="11" required>
+                            <input type="text" class="form-control" id="telefono" placeholder="Número Celular" minlength="9" maxlength="11" required autocomplete="off" oninput="validarSoloNumeros(this)" onblur="validarSoloNumeros(this)">
                         </div>
                         <div class="col-auto">
-                            <input type="email" name="correo2" class="form-control" id="correo2" placeholder="Correo Electrónico" minlength="10" maxlength="30" required>
+                            <input type="email" name="correo2" class="form-control" id="correo2" placeholder="Correo Electrónico" minlength="10" maxlength="30" required onblur="validarCorreos(this)">
                         </div>
                     </div>
                     <div class="col-12 d-flex flex-wrap justify-content-center">
@@ -206,15 +210,15 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
                         <input type="text" class="form-control" id="idProducto" placeholder="ID" readonly>
                     </div>
                     <div class="col-auto mb-1">
-                        <input type="text" class="form-control" id="nombreProducto" placeholder="Nombre" minlength="10" maxlength="40" required>
+                        <input type="text" class="form-control" id="nombreProducto" placeholder="Nombre" minlength="5" maxlength="35" required autocomplete="off" oninput="validarSoloTexto(this)" onblur="validarSoloTexto(this)">
                     </div>
                 </div>
                 <div>
                     <div class="col-auto mb-1">
-                        <input type="text" class="form-control" id="tipo" placeholder="Ingrese tipo de Producto"  required>
+                        <input type="text" class="form-control" id="tipo" placeholder="Ingrese tipo de Producto" minlength="5" maxlength="35" required autocomplete="off" oninput="validarSoloTexto(this)" onblur="validarSoloTexto(this)">
                     </div>
                     <div class="col-auto">
-                        <input type="number" class="form-control numero-positivo" id="precio" placeholder="Precio" min="1" step="1" required>
+                        <input type="text" class="form-control" id="precio" placeholder="Precio" minlength="4" maxlength="7" required autocomplete="off" oninput="validarPrecio(this)" onblur="validarPrecio(this)">
                     </div>
                 </div>
                 <div class="col-12 d-flex flex-wrap justify-content-center">

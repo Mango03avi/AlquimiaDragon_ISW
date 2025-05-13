@@ -27,7 +27,7 @@
                 <!--Div para boton de log in-->
                 <div class="d-flex justify-content-end align-items-center gap-2 mb-5">
                     <span class="text" style="font-weight: 500;">¿Ya tienes cuenta?</span>
-                    <a class="btn btn-primary" id="btn-login" href="login.php">Log in</a>
+                    <a class="btn btn-primary" id="btn-login" href="../html/login.php">Log in</a>
                 </div>
                 <!--Div con texto de registro-->
                 <div class="text-start">
@@ -39,7 +39,8 @@
                     <!--Input's largos para correo y password-->
                     <div class="d-flex flex-wrap justify-content-center gap-2">
                         <div class="col-auto mb-4">
-                            <input type="text" class="form-control" id="form" placeholder="Codigo" name="codigo">
+                            <input type="text" class="form-control" id="form" placeholder="Codigo" name="codigo" minlength="6" maxlength="6" 
+                            pattern="[0-9]{6}"  title="Solo 6 digitos"} >
                         </div>
                     </div>
                     <!--Boton-->

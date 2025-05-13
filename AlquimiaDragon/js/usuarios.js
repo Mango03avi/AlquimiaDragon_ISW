@@ -1,19 +1,30 @@
+let frm;
 document.addEventListener("DOMContentLoaded", function () {
     cargarUsuarios();
     cargarRoles(); // Cargar roles en el select
     // Agregar evento de búsqueda
     document.getElementById("searchInput").addEventListener("input", filtrarTablaUsuarios);
     document.getElementById("btn-update").addEventListener("click", actualizarUsuario);
-    document.getElementById("btn-register").addEventListener("click", registrarUsuario);
-    
-    // Agregar validadores para campos numéricos
-    document.querySelectorAll(".numero-positivo").forEach(input => {
-        input.addEventListener("input", function() {
-            validarNumeroPositivo(this);
-        });
+     // eliminamos listener al botón y cambiamos al formulario:
+    frm = document.getElementById("registerForm");
+    frm.addEventListener("submit", registrarUsuario);
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const boton = document.getElementById("btn-ticket");
+        if (boton) {
+            boton.addEventListener("click", function (e) {
+                e.preventDefault();
+                generarTicketDelDia();
+            });
+        }
     });
 });
 
+<<<<<<< HEAD
+=======
+
+//Funcion para generar el ticket del día
+>>>>>>> 9fff8d3b118cc79cf6c245225923340e75bc5e68
 function generarTicketDelDia() {
     const hoy = new Date().toISOString().split("T")[0]; // Formato: YYYY-MM-DD
     const url = "../base/generarTicket.php?fecha=" + hoy;
@@ -21,15 +32,17 @@ function generarTicketDelDia() {
 }
 
 // Función para validar números positivos
-function validarSoloTexto(inputElement) {
+function validarSoloTexto(inputElement, minLength = 5, maxLength = 35) {
     // Guardar el valor original antes de limpiar
     const valorOriginal = inputElement.value;
     
     // Eliminar todo lo que no sea letra (incluye acentos, espacios y Ñ)
     inputElement.value = inputElement.value.replace(/[^A-Za-záéíóúüñÁÉÍÓÚÜÑ\s]/g, '');
-    
+    //Para validar longitud de texto
+    const valor = inputElement.value.trim();
+    const longitudValida = valor.length >= minLength && valor.length <= maxLength;
     // Verificar si el valor original tenía caracteres inválidos
-    const esValido = inputElement.value === valorOriginal && inputElement.value.trim() !== '';
+    const esValido = valor === valorOriginal.trim() && longitudValida;
     
     // Aplicar clases de validación
     if (esValido) {
@@ -39,8 +52,12 @@ function validarSoloTexto(inputElement) {
     } else {
         inputElement.classList.remove('is-valid');
         inputElement.classList.add('is-invalid');
-        inputElement.setCustomValidity("Solo se permiten letras (no números ni símbolos)");
-        inputElement.reportValidity(); // Mostrar mensaje de error
+        let mensaje = "Solo se permiten letras";
+        if (!longitudValida) {
+            mensaje += ` (${minLength}-${maxLength} caracteres requeridos)`;
+        }
+        inputElement.setCustomValidity(mensaje);
+        inputElement.reportValidity();//Muestra el mensaje
     }
     
     return esValido;
@@ -48,22 +65,26 @@ function validarSoloTexto(inputElement) {
 
 
 // Función para validar correos
-function validarCorreos(inputElement) {
+function validarCorreos(inputElement, minLength = 10, maxLength = 35) {
     const valor = inputElement.value.trim();
     
     // Expresión regular mejorada para correos
     const regexCorreo = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;    
-    const esValido = valor !== '' && regexCorreo.test(valor);
+    const longitudValida = valor.length >= minLength && valor.length <= maxLength;
+    const esValido = regexCorreo.test(valor) && longitudValida;
     
-    // Aplicar clases de validación
     if (esValido) {
         inputElement.classList.remove('is-invalid');
         inputElement.classList.add('is-valid');
-        inputElement.setCustomValidity(""); // Limpiar mensaje de error
+        inputElement.setCustomValidity("");
     } else {
         inputElement.classList.remove('is-valid');
         inputElement.classList.add('is-invalid');
-        inputElement.setCustomValidity("Por favor ingrese un correo válido (ejemplo: usuario@gmail.com)");
+        let mensaje = "Correo inválido.";
+        if (!longitudValida) {
+            mensaje += ` Debe tener entre ${minLength} y ${maxLength} caracteres.`;
+        }
+        inputElement.setCustomValidity(mensaje);
         inputElement.reportValidity();
     }
     
@@ -71,31 +92,84 @@ function validarCorreos(inputElement) {
 }
 
 // Función para validar números positivos
-function validarSoloNumeros(inputElement) {
+function validarSoloNumeros(inputElement, minLength = 9, maxLength = 11) {
     // Guardar el valor original antes de limpiar
     const valorOriginal = inputElement.value;
     
     // Eliminar todo lo que no sea número (incluyendo el 0)
     inputElement.value = inputElement.value.replace(/[^0-9]/g, '');
+    const valor = inputElement.value;
     
-    // Verificar si el valor original tenía caracteres inválidos
-    const esValido = inputElement.value === valorOriginal && inputElement.value !== '';
+    // Verificar si el valor original tenía caracteres inválidos y el largo correcto
+    const longitudValida = valor.length >= minLength && valor.length <= maxLength;
+    const esValido = valor === valorOriginal.trim() && longitudValida;
     
     // Aplicar clases de validación
     if (esValido) {
         inputElement.classList.remove('is-invalid');
         inputElement.classList.add('is-valid');
-        inputElement.setCustomValidity(""); // Limpiar mensaje de error
+        inputElement.setCustomValidity("");
     } else {
         inputElement.classList.remove('is-valid');
         inputElement.classList.add('is-invalid');
-        inputElement.setCustomValidity("Solo se permiten números (no letras ni símbolos)");
-        inputElement.reportValidity(); // Mostrar mensaje de error
+        let mensaje = "Solo se permiten números.";
+        if (!longitudValida) {
+            mensaje += ` Debe tener entre ${minLength} y ${maxLength} dígitos.`;
+        }
+        inputElement.setCustomValidity(mensaje);
+        inputElement.reportValidity();
     }
+
     
     return esValido;
 }
 
+function validarPrecio(inputElement, minLength = 2, maxLength = 7) {
+    //guardar posición del cursor y valor original
+    const inicioSeleccion = inputElement.selectionStart;
+    const valorOriginal = inputElement.value;
+    // Obtener el botón
+    const boton = document.getElementById("btn-updateP");
+
+    //Filtrado de caracteres no válidos
+    inputElement.value = inputElement.value
+        .replace(/[^0-9.]/g, '')  // Elimina todo lo que no sean números o puntos
+        .replace(/(\..*)\./g, '$1') // Elimina puntos adicionales
+        .replace(/^(\d{4,})(\.\d{0,2})?/g, (m, p1) => p1.slice(0,4)) // Limita a 4 enteros
+        .replace(/(\.\d{2})\d+/g, '$1'); // Limita a 2 decimales
+    
+    //validaciones
+    const regexPrecio = /^[0-9]{2,4}(\.[0-9]{1,2})?$/;
+    const formatoValido = regexPrecio.test(inputElement.value);
+    const longitudValida = inputElement.value.length >= minLength && 
+                        inputElement.value.length <= maxLength;
+    const esValido = formatoValido && longitudValida && inputElement.value !== '';
+    
+    // 3. Ajustar posición del cursor
+    const cambios = valorOriginal.length - inputElement.value.length;
+    inputElement.selectionEnd = inputElement.selectionStart = Math.max(0, inicioSeleccion - cambios);
+    
+    //Alerta
+    if (esValido) {
+        inputElement.classList.remove('is-invalid');
+        inputElement.classList.add('is-valid');
+        inputElement.setCustomValidity("");
+    } else {
+        inputElement.classList.remove('is-valid');
+        inputElement.classList.add('is-invalid');
+        
+        let mensaje = "Formato: 2-4 enteros y hasta 2 decimales (ej: 99.99)";
+        if (!longitudValida) {
+            mensaje += `\nDebe tener entre ${minLength} y ${maxLength} caracteres.`;
+        }
+        inputElement.setCustomValidity(mensaje);
+        inputElement.reportValidity();
+    }
+    if (boton) {
+        boton.disabled = !esValido;
+    }
+    return esValido;
+}
 
 // Función para cargar usuarios
 function cargarUsuarios() {
@@ -181,7 +255,7 @@ function actualizarUsuario(event) {
     
     // Validar campo de teléfono
     const inputTelefono = document.getElementById("telefono");
-    if (inputTelefono && !validarNumeroPositivo(inputTelefono)) {
+    if (inputTelefono && !validarSoloNumeros(inputTelefono)) {
         alert("Por favor ingrese un número de teléfono válido");
         inputTelefono.focus();
         return;
@@ -216,15 +290,15 @@ function actualizarUsuario(event) {
             cargarUsuarios(); // Recargar la tabla de usuarios después de actualizar
         }
     })
-    alert("Error al actualizar usuario:", error);
 }
 
 // Función para registrar el usuario
 function registrarUsuario(event) {
-    
+    event.preventDefault(); // Evita que el formulario recargue la página
+
     // Validar campo de teléfono celular
     const inputCelular = document.getElementById("celular");
-    if (inputCelular && !validarNumeroPositivo(inputCelular)) {
+    if (!validarSoloNumeros(inputCelular)) {
         alert("Por favor ingrese un número de celular válido");
         inputCelular.focus();
         return;
@@ -266,9 +340,14 @@ function registrarUsuario(event) {
     })
     .then(data => {
         if (data.success) {
+<<<<<<< HEAD
+            alert("Usuario registrado con éxito");  
+            frm.reset(); 
+=======
             // Mensaje de registro exitoso
             alert(data.message || "Usuario registrado con éxito");  
             document.querySelector('form').reset(); 
+>>>>>>> 398daddc07b8f10be4a6dd36f39d1d0318f42f66
         } else {
             // Aquí cae si el correo ya existe o hay otro error
             alert(data.message || "Ocurrió un error al registrar el usuario");
@@ -279,3 +358,4 @@ function registrarUsuario(event) {
         alert("Hubo un problema al registrar el usuario");
     });
 }
+ //Error dice que frm no esta declarado cuando
