@@ -98,7 +98,11 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
                     <input type="email" name="email" class="form-control" id="correo" placeholder="Correo Electrónico" minlength="10" maxlength="35" required autocomplete="off" onblur="validarCorreos(this)">
                 </div>
                 <div class="col-auto">
+<<<<<<< HEAD
                     <input type="password" class="form-control" id="contra" placeholder="Contraseña" minlength="10" maxlength="25" required autocomplete="off">
+=======
+                    <input type="password" class="form-control" id="contra" placeholder="Contraseña" minlength="10" maxlength="35" required autocomplete="off" >
+>>>>>>> 398daddc07b8f10be4a6dd36f39d1d0318f42f66
                 </div>
             </div>
             <!--Input's largos para rol-->

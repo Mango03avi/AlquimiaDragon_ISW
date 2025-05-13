@@ -337,9 +337,16 @@ function registrarUsuario(event) {
     })
     .then(data => {
         if (data.success) {
+<<<<<<< HEAD
             alert("Usuario registrado con éxito");  
             frm.reset(); 
+=======
+            // Mensaje de registro exitoso
+            alert(data.message || "Usuario registrado con éxito");  
+            document.querySelector('form').reset(); 
+>>>>>>> 398daddc07b8f10be4a6dd36f39d1d0318f42f66
         } else {
+            // Aquí cae si el correo ya existe o hay otro error
             alert(data.message || "Ocurrió un error al registrar el usuario");
         }
     })
