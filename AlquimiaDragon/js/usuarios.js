@@ -14,6 +14,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+function generarTicketDelDia() {
+    const hoy = new Date().toISOString().split("T")[0]; // Formato: YYYY-MM-DD
+    const url = "../base/generarTicket.php?fecha=" + hoy;
+    window.open(url, "_blank");
+}
+
 // Función para validar números positivos
 function validarSoloTexto(inputElement) {
     // Guardar el valor original antes de limpiar
