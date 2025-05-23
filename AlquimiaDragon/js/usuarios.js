@@ -8,28 +8,9 @@ document.addEventListener("DOMContentLoaded", function () {
      // eliminamos listener al botón y cambiamos al formulario:
     frm = document.getElementById("registerForm");
     frm.addEventListener("submit", registrarUsuario);
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const boton = document.getElementById("btn-ticket");
-        if (boton) {
-            boton.addEventListener("click", function (e) {
-                e.preventDefault();
-                generarTicketDelDia();
-            });
-        }
-    });
 });
 
-<<<<<<< HEAD
-=======
 
-//Funcion para generar el ticket del día
->>>>>>> 9fff8d3b118cc79cf6c245225923340e75bc5e68
-function generarTicketDelDia() {
-    const hoy = new Date().toISOString().split("T")[0]; // Formato: YYYY-MM-DD
-    const url = "../base/generarTicket.php?fecha=" + hoy;
-    window.open(url, "_blank");
-}
 
 // Función para validar números positivos
 function validarSoloTexto(inputElement, minLength = 5, maxLength = 35) {
@@ -340,14 +321,8 @@ function registrarUsuario(event) {
     })
     .then(data => {
         if (data.success) {
-<<<<<<< HEAD
             alert("Usuario registrado con éxito");  
             frm.reset(); 
-=======
-            // Mensaje de registro exitoso
-            alert(data.message || "Usuario registrado con éxito");  
-            document.querySelector('form').reset(); 
->>>>>>> 398daddc07b8f10be4a6dd36f39d1d0318f42f66
         } else {
             // Aquí cae si el correo ya existe o hay otro error
             alert(data.message || "Ocurrió un error al registrar el usuario");

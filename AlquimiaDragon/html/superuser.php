@@ -98,11 +98,7 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
                     <input type="email" name="email" class="form-control" id="correo" placeholder="Correo Electrónico" minlength="10" maxlength="35" required autocomplete="off" onblur="validarCorreos(this)">
                 </div>
                 <div class="col-auto">
-<<<<<<< HEAD
                     <input type="password" class="form-control" id="contra" placeholder="Contraseña" minlength="10" maxlength="25" required autocomplete="off">
-=======
-                    <input type="password" class="form-control" id="contra" placeholder="Contraseña" minlength="10" maxlength="35" required autocomplete="off" >
->>>>>>> 398daddc07b8f10be4a6dd36f39d1d0318f42f66
                 </div>
             </div>
             <!--Input's largos para rol-->
@@ -231,33 +227,18 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
             <h1 class="mb-3 text-center">Generar Ticket</h1>
 
             <div class="col-12 d-flex flex-wrap justify-content-center">
-                <button type="submit" class="btn btn-primary mt-2" id="btn-ticket">Generar Ticket</button>
+                <button type="button" class="btn btn-primary mt-2" id="btn-ticket">Generar Ticket</button>
             </div>
         </div>
 
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Seleccionar el botón por su ID
-            const btnTicket = document.getElementById("btn-ticket");
-
-            // Verificar si el botón existe antes de agregar el evento
-            if (btnTicket) {
-                btnTicket.addEventListener("click", function (event) {
-                    event.preventDefault(); // Evitar que el formulario se envíe
-                    alert("Estamos trabajando en esta funcionalidad. ¡Pronto estará disponible!");
-                });
-            } else {
-                console.warn("El botón con ID 'btn-updateP' no fue encontrado");
-            }
-        });
-    </script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> <!-- Librería jsPDF para generar pdf-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script> <!-- Librería para dar formato a los pdf-->
     <script src="../js/usuarios.js"></script>
     <script src="../js/menu.js"></script>
     <script src="../js/bootstrap.bundle.js"></script>
-
+    <script src="../js/ticket.js"></script>
 
 </body>
 

@@ -1,21 +1,43 @@
-require_once("conexion.php");
+<?php
+require 'conexion.php';
 
-$fecha = $_GET["fecha"] ?? date("Y-m-d");
+// Establece la zona horaria si aún no está configurada
+date_default_timezone_set('America/Mexico_City'); // Cambia según tu zona
 
-header('Content-Type: text/csv');
-header('Content-Disposition: attachment; filename="comanda_' . $fecha . '.csv"');
+$hoy = date('Y-m-d');
 
-$output = fopen('php://output', 'w');
-fputcsv($output, ['ID Comanda', 'ID Mesa', 'ID Usuario', 'Fecha', 'Cantidad', 'Subtotal']);
+// Obtener tickets del día (usando DATE() para ignorar la hora)
+$ticketsQuery = $conn->query("
+    SELECT ID_ticket, Total, Metodo_pago, Fecha 
+    FROM ticket 
+    WHERE DATE(Fecha) = CURDATE()
+");
 
-$stmt = $conn->prepare("SELECT ID_comanda, Mesas_ID_mesa, Usuario2_ID_usuario, Fecha, Cantidad, Subtotal 
-                        FROM Comanda 
-                        WHERE Fecha = ?");
-$stmt->execute([$fecha]);
+$tickets = $ticketsQuery ? $ticketsQuery->fetch_all(MYSQLI_ASSOC) : [];
 
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    fputcsv($output, $row);
-}
+// Obtener productos vendidos hoy
+$productosQuery = $conn->query("
+    SELECT 
+        p.Nombre, 
+        p.Tipo, 
+        php.Cantidad, 
+        php.Precio_individual,
+        (php.Cantidad * php.Precio_individual) AS Total
+    FROM pedido_has_producto php
+    INNER JOIN pedidos ped ON ped.ID_pedido = php.pedidos_ID_pedido
+    INNER JOIN producto p ON p.ID_producto = php.producto_ID_producto
+    WHERE DATE(ped.Fecha) = CURDATE()
+");
 
-fclose($output);
-exit;
+$productos = $productosQuery ? $productosQuery->fetch_all(MYSQLI_ASSOC) : [];
+
+// Encabezado para que devuelva JSON correctamente
+header('Content-Type: application/json');
+
+// Respuesta como JSON
+echo json_encode([
+    "tickets" => $tickets,
+    "productos" => $productos
+], JSON_UNESCAPED_UNICODE);
+
+?>
